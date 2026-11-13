@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import T from '../components/T.astro';
+import { SITE, type LangKey } from '../config/site';
+import { withBase } from '../lib/url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  active?: string;
+  /** About 페이지처럼 URL로 언어가 고정된 페이지인 경우 지정 */
+  pageLang?: LangKey;
+  image?: string;
+}
+const {
+  title,
+  description = `${SITE.name} (${SITE.alias}) — Composer & multi-artist. Composition, vocals, arrangement, lyrics, mixing, mastering, artwork, video and publication.`,
+  active,
+  pageLang,
+  image,
+} = Astro.props;
+const fullTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} | Composer & Multi-Artist`;
+const htmlLang = { ko: 'ko', en: 'en', jp: 'ja', cn: 'zh' }[pageLang ?? 'ko'];
+const year = new Date().getFullYear();
+// 링크 미리보기: 페이지별 이미지(작업물 커버 등)가 없으면 기본 이미지(public/og-image.png). SNS는 절대 주소만 인식
+const site = Astro.site ?? new URL(Astro.url.origin);
+const ogImage = new URL(image ?? withBase('og-image.png'), site).href;
+const canonical = new URL(Astro.url.pathname, site).href;
+---
+<!doctype html>
+<html lang={htmlLang} data-lang={pageLang ?? 'ko'} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    {!image && <meta property="og:image:width" content="1200" />}
+    {!image && <meta property="og:image:height" content="630" />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#131012" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="apple-touch-icon" href={withBase('apple-touch-icon.png')} />
+    <link rel="sitemap" href={withBase('sitemap-index.xml')} />
+
+    <!-- 언어·테마를 첫 페인트 전에 적용 (깜빡임 방지) -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement, L = ['ko', 'en', 'jp', 'cn'], lang, theme;
+        try { lang = localStorage.getItem('lang'); theme = localStorage.getItem('theme'); } catch (e) {}
+        var m = location.pathname.match(/\/(ko|en|jp|cn)\/about\/?$/);
+        if (m) { lang = m[1]; try { localStorage.setItem('lang', lang); } catch (e) {} }
+        if (L.indexOf(lang) < 0) lang = 'ko';
+        d.setAttribute('data-lang', lang);
+        d.lang = { ko: 'ko', en: 'en', jp: 'ja', cn: 'zh' }[lang];
+        d.setAttribute('data-theme', theme === 'light' ? 'light' : 'dark');
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif:wght@600;700;900&family=Noto+Serif+KR:wght@600;700;900&family=Noto+Serif+JP:wght@600;700;900&family=Noto+Serif+SC:wght@600;700;900&display=swap"
+    />
+  </head>
+  <body data-about-page={pageLang}>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header active={active} />
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <img class="footer-mark" src={withBase('favicon.svg')} alt="" width="38" height="38" />
+          <div>
+            <p class="footer-name">{SITE.name}</p>
+            <p class="footer-alias">{SITE.alias}</p>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <p class="footer-copy">© {year} {SITE.name}. All rights reserved.</p>
+          <p class="footer-notice"><T k="footer.notice" /></p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+---
+/**
+ * 검색 입력창 + 범위 선택(전체/제목/장르/참여).
+ * 제출하면 /search/?q=검색어&in=범위 로 이동합니다. (JS 없이도 동작)
+ */
+import T from './T.astro';
+import { LANGS } from '../config/site';
+import { UI, type UIKey } from '../lib/i18n';
+import { withBase } from '../lib/url';
+
+interface Props {
+  variant?: 'panel' | 'page';
+  id?: string;
+}
+const { variant = 'panel', id = 'search-q' } = Astro.props;
+const SCOPES: { value: string; k: UIKey }[] = [
+  { value: 'all', k: 'search.scope.all' },
+  { value: 'title', k: 'search.scope.title' },
+  { value: 'genre', k: 'search.scope.genre' },
+  { value: 'role', k: 'search.scope.role' },
+];
+const ph = Object.fromEntries(LANGS.map((l) => [`data-ph-${l.key}`, UI['search.placeholder'][l.key]]));
+---
+<form class:list={['search-form', `search-form--${variant}`]} action={withBase('search/')} method="get" role="search" data-search-form>
+  <div class="search-row">
+    <label class="sr-only" for={id}><T k="search.title" /></label>
+    <input
+      class="search-input"
+      id={id}
+      type="search"
+      name="q"
+      autocomplete="off"
+      enterkeyhint="search"
+      placeholder={UI['search.placeholder'].ko}
+      {...ph}
+    />
+    <button type="submit" class="search-submit" aria-label="Search">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="5" /><path d="M10.2 10.2 L15 15" /></svg>
+    </button>
+  </div>
+  <div class="search-scopes" role="radiogroup">
+    {SCOPES.map((s, i) => (
+      <label class="search-scope">
+        <input type="radio" name="in" value={s.value} checked={i === 0} />
+        <span class="search-scope-label"><T k={s.k} /></span>
+      </label>
+    ))}
+  </div>
+</form>

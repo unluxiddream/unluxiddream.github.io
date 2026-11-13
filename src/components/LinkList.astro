@@ -1,0 +1,24 @@
+---
+/** 외부 링크 목록 (사각 버튼). variant="grid" 는 스트리밍처럼 이름만 있는 링크용 */
+import T from './T.astro';
+import type { SiteLink } from '../config/site';
+
+interface Props {
+  links: SiteLink[];
+  variant?: 'rows' | 'grid';
+}
+const { links, variant = 'rows' } = Astro.props;
+---
+<ul class:list={['links', `links--${variant}`]}>
+  {links.map((l) => (
+    <li>
+      <a href={l.url} target={l.url.startsWith('mailto:') ? undefined : '_blank'} rel="noopener">
+        <span class="links-text">
+          <span class="links-label">{l.label}</span>
+          {l.desc && <span class="links-desc"><T v={l.desc} /></span>}
+        </span>
+        <svg class="links-arrow" viewBox="0 0 10 10" aria-hidden="true"><polygon points="2,0 10,0 10,8 8,8 8,3.4 1.4,10 0,8.6 6.6,2 2,2" /></svg>
+      </a>
+    </li>
+  ))}
+</ul>

@@ -1,0 +1,86 @@
+---
+import T from './T.astro';
+import type { UIKey } from '../lib/i18n';
+
+interface Props {
+  target?: string;
+}
+const { target = 'works' } = Astro.props;
+const OPTIONS: { value: string; k: UIKey }[] = [
+  { value: 'newest', k: 'sort.newest' },
+  { value: 'oldest', k: 'sort.oldest' },
+  { value: 'az', k: 'sort.az' },
+  { value: 'za', k: 'sort.za' },
+];
+---
+<div class="sort" data-sort data-target={target}>
+  <span class="sort-label"><T k="sort.label" /></span>
+  <button type="button" class="sort-btn" aria-haspopup="listbox" aria-expanded="false">
+    <span class="sort-current" data-sort-current><T k="sort.newest" /></span>
+    <svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><polygon points="0,0 10,0 5,6" /></svg>
+  </button>
+  <ul class="sort-list" role="listbox">
+    {OPTIONS.map((o, i) => (
+      <li role="option" aria-selected={i === 0 ? 'true' : 'false'} data-value={o.value} tabindex="-1">
+        <T k={o.k} />
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  const LOCALE: Record<string, string> = { ko: 'ko', en: 'en', jp: 'ja', cn: 'zh' };
+  const store = {
+    get(k: string) { try { return localStorage.getItem(k); } catch { return null; } },
+    set(k: string, v: string) { try { localStorage.setItem(k, v); } catch { /* storage blocked */ } },
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-sort]').forEach((box) => {
+    const grid = document.getElementById(box.dataset.target || 'works');
+    const btn = box.querySelector<HTMLButtonElement>('.sort-btn')!;
+    const current = box.querySelector<HTMLElement>('[data-sort-current]')!;
+    const items = [...box.querySelectorAll<HTMLElement>('[role="option"]')];
+    let mode = store.get('sort') || 'newest';
+
+    function apply() {
+      items.forEach((it) => it.setAttribute('aria-selected', String(it.dataset.value === mode)));
+      const sel = items.find((it) => it.dataset.value === mode) ?? items[0];
+      current.innerHTML = sel.innerHTML;
+      if (!grid) return;
+      const lang = document.documentElement.dataset.lang || 'ko';
+      const collator = new Intl.Collator(LOCALE[lang], { numeric: true, sensitivity: 'base' });
+      const cards = [...grid.querySelectorAll<HTMLElement>('[data-card]')];
+      const key = (c: HTMLElement) => Number(c.dataset.key);
+      const title = (c: HTMLElement) => c.getAttribute(`data-t-${lang}`) || '';
+      cards.sort((a, b) => {
+        switch (mode) {
+          case 'oldest': return key(a) - key(b);
+          case 'az': return collator.compare(title(a), title(b));
+          case 'za': return collator.compare(title(b), title(a));
+          default: return key(b) - key(a);
+        }
+      });
+      grid.append(...cards);
+    }
+
+    function toggle(open: boolean) {
+      box.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      if (open) (items.find((i) => i.dataset.value === mode) ?? items[0]).focus();
+    }
+
+    btn.addEventListener('click', (e) => { e.stopPropagation(); toggle(!box.classList.contains('is-open')); });
+    items.forEach((it, idx) => {
+      it.addEventListener('click', () => { mode = it.dataset.value!; store.set('sort', mode); apply(); toggle(false); btn.focus(); });
+      it.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); items[(idx + 1) % items.length].focus(); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); items[(idx - 1 + items.length) % items.length].focus(); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); it.click(); }
+        if (e.key === 'Escape') { toggle(false); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', () => toggle(false));
+    document.addEventListener('langchange', () => { if (mode === 'az' || mode === 'za') apply(); });
+    apply();
+  });
+</script>

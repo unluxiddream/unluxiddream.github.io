@@ -1,0 +1,25 @@
+---
+import WorkCard from './WorkCard.astro';
+import T from './T.astro';
+import type { Tab, Work } from '../lib/works';
+
+interface Props {
+  works: Work[];
+  id?: string;
+  /** 필터 버튼이 있는 탭 페이지에서만 지정 */
+  tab?: Tab;
+  /** 카드 제목 아래에 genres 값을 표시할지 */
+  showGenres?: boolean;
+}
+const { works, id = 'works', tab, showGenres = false } = Astro.props;
+---
+{works.length === 0 ? (
+  <p class="empty"><T k="list.empty" /></p>
+) : (
+  <>
+    <div class="grid" id={id} data-grid>
+      {works.map((w) => <WorkCard work={w} tab={tab} showGenres={showGenres} />)}
+    </div>
+    {tab && <p class="empty" data-filter-empty hidden><T k="filter.empty" /></p>}
+  </>
+)}

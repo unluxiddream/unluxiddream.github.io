@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import FilterBar from '../components/FilterBar.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import { getWorksByTab } from '../lib/works';
+
+const works = await getWorksByTab('visual');
+---
+<BaseLayout title="Visual & Video" active="visual">
+  <PageHead title="Visual & Video" count={works.length} sort>
+    <FilterBar tab="visual" />
+  </PageHead>
+  <section class="wrap section section--grid">
+    <WorkGrid works={works} tab="visual" />
+  </section>
+</BaseLayout>

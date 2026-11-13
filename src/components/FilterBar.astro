@@ -1,0 +1,56 @@
+---
+import T from './T.astro';
+import { FILTERS } from '../config/site';
+import type { Tab } from '../lib/works';
+
+interface Props {
+  tab: Tab;
+  target?: string;
+}
+const { tab, target = 'works' } = Astro.props;
+const filters = FILTERS[tab];
+---
+<div class="filters" data-filters-bar data-target={target}>
+  <span class="sr-only"><T k="filter.label" /></span>
+  <button type="button" class="filter is-active" data-filter="all" aria-pressed="true"><T k="filter.all" /></button>
+  {filters.map((f) => (
+    <button type="button" class="filter" data-filter={f.key} aria-pressed="false"><T v={f.label} /></button>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-filters-bar]').forEach((bar) => {
+    const grid = document.getElementById(bar.dataset.target || 'works');
+    if (!grid) return;
+    const empty = document.querySelector<HTMLElement>('[data-filter-empty]');
+    const counter = document.querySelector<HTMLElement>('[data-count]');
+    const buttons = [...bar.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+
+    /** 선택한 key 들 중 하나라도 해당하는 작품을 표시 (버튼 클릭은 1개, 주소로 들어올 땐 여러 개 가능) */
+    function select(keys: string[]) {
+        const all = keys.includes('all');
+        buttons.forEach((b) => {
+          const on = keys.includes(b.dataset.filter!);
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        let shown = 0;
+        grid!.querySelectorAll<HTMLElement>('[data-card]').forEach((card) => {
+          const mine = (card.dataset.filters || '').split(' ');
+          const ok = all || keys.some((k) => mine.includes(k));
+          card.hidden = !ok;
+          if (ok) shown++;
+        });
+        if (counter) counter.textContent = String(shown);
+        if (empty) empty.hidden = shown > 0;
+    }
+
+    buttons.forEach((btn) => btn.addEventListener('click', () => select([btn.dataset.filter!])));
+
+    // 주소에 ?filter=키 (쉼표로 여러 개 가능: ?filter=mix,master) 가 붙어 들어오면 해당 버튼을 켠 상태로 시작
+    // (Home 「Works」 칸, About 「활동 분야」 링크 등)
+    const valid = new Set(buttons.map((b) => b.dataset.filter!));
+    const preset = (new URLSearchParams(location.search).get('filter') ?? '').split(',').map((k) => k.trim()).filter((k) => valid.has(k));
+    if (preset.length) select(preset);
+  });
+</script>

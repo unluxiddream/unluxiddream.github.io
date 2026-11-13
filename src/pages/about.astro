@@ -1,0 +1,21 @@
+---
+/** /about/ → 현재 선택 언어의 About 페이지로 이동 (기본: 한국어) */
+import { withBase } from '../lib/url';
+const base = withBase('');
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${base}ko/about/`} />
+    <script is:inline define:vars={{ base }}>
+      var l = 'ko';
+      try { l = localStorage.getItem('lang') || 'ko'; } catch (e) {}
+      if (['ko', 'en', 'jp', 'cn'].indexOf(l) < 0) l = 'ko';
+      location.replace(base + l + '/about/');
+    </script>
+    <title>About</title>
+  </head>
+  <body style="background:#131012"></body>
+</html>

@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import AboutView from '../../components/AboutView.astro';
+import type { AboutData } from '../../lib/about';
+
+/* ───────── 이 아래 data 객체만 수정하면 About 페이지 내용이 바뀝니다 ───────── */
+const data: AboutData = {
+  intro: [
+    '小学校入学と同時にクラシックピアノを習い始め、中学校入学後はポップピアノへとジャンルを変え、独学で作曲を始めた。',
+    '工科大学に進学したものの音楽を諦めることができず、複数専攻としてクラシック作曲を選び、現在に至る。',
+    'これまで学んできたすべての音楽を繋ぎ合わせ、特定のジャンルや形式では定義できない「自分だけの音楽」を追い求めている。',
+  ],
+  labels: {
+    fields: '活動分野', education: '学歴', discography: 'ディスコグラフィー', projects: 'プロジェクト',
+    activities: 'その他の活動', portfolio: '代表ポートフォリオ', contact: '連絡先',
+    viewWork: '作品を見る', viewTab: '一覧を見る',
+  },
+  fields: [
+    { label: 'ボーカル', to: 'music/?filter=vocal' },
+    { label: '作曲', to: 'music/?filter=compose' },
+    { label: '編曲', to: 'music/?filter=arrange' },
+    { label: '作詞', to: 'music/?filter=lyrics' },
+    { label: 'デザイン', to: 'visual/?filter=design' },
+    { label: 'イラスト', to: 'visual/?filter=illust' },
+    { label: '映像', to: 'visual/?filter=video' },
+    { label: '日本語翻訳', to: 'other/?filter=translate' },
+  ],
+  education: ['祥明大学校 人文社会科学大学 韓日文化コンテンツ専攻、文化芸術大学 音楽学部 ニューメディア作曲専攻 在学（2023〜）'],
+  discography: [
+    { year: '2026', title: 'ミュージカル『毒王伝記』中、一生希 I', format: 'Single', workId: 'ilsaenghui1' },
+    { year: '2026', title: '有（ゆう ）', format: 'Single', workId: 'yuuwaeru' },
+    { year: '2026', title: 'オーケストラのための「神化」', format: 'Single', workId: 'shinhwafororchestra' },
+    { year: '2026', title: '소프라노 리코더와 피아노를 위한 일광(日光)', format: 'Single', workId: 'formysunlight' },
+    { year: '2025', title: 'この花は死なせました', format: 'Single', note: '作曲・作詞・ボーカル参加', workId: 'konohanahashinasemashita' },
+    { year: '2025', title: '夢でさえ、もう一度会えたら', format: 'Single', workId: 'ifmetagainindream' },
+    { year: '2024', title: 'Suite for Piano Solo', format: 'EP', workId: 'suiteforpianosolo' },
+    { year: '2024', title: '時期、運、運命', format: 'Single', workId: 'timing-luck-fate' },
+    { year: '2023', title: '一千年の森', format: 'Single', workId: '1000forest' },
+  ],
+  projects: [{ year: '2026〜', title: 'Project・LuDiA' }],
+  activities: [
+    { year: '2026〜', title: 'UnTuned Live Challenge', url: 'https://www.youtube.com/playlist?list=PL8mkiqUJ8o-eom0PIFUjN8bscw4l5crky' },
+    { year: '2026〜', title: 'ボーカロイド×プロデューサーユニット LeXidN', url: 'https://www.youtube.com/playlist?list=PLNbkmfiKfi0M' },
+  ],
+  portfolio: [
+    {
+      genre: 'オーケストラ作曲',
+      title: 'UnluXidDream 5th Single「{title}」',
+      workId: 'shinhwafororchestra',
+    },
+    {
+      genre: 'ミュージカルナンバー作曲・ボーカル',
+      title: '【Official】 {title} 【Project・LuDiA】',
+      workId: 'ilsaenghui1',
+    },
+    {
+      genre: 'クラシカルEDM作曲・演奏',
+      title: '【Official】 UnluXidDream「{title}」【Project・LuDiA】',
+      workId: 'yuuwaeru',
+    },
+    {
+      genre: 'J-POPボーカル',
+      title: 'I\'MKL 1st Single「{title}」',
+      workId: 'konohanahashinasemashita',
+    },
+    { genre: 'アルバムカバーアートデザイン', to: 'visual/?filter=albumart' },
+    { genre: 'カリグラフィー', to: 'visual/?filter=calli' },
+  ],
+};
+/* ───────────────────────────────────────────────────────────────────── */
+---
+<BaseLayout title="About" active="about" pageLang="jp">
+  <PageHead title="About" />
+  <AboutView lang="jp" data={data} />
+</BaseLayout>

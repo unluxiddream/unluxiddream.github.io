@@ -1,0 +1,38 @@
+---
+/** 커버 이미지 위의 인덱스 태그 (이미지 테두리 밖으로 살짝 튀어나옴) */
+import { PROJECTS, WORK_TYPES } from '../config/site';
+import type { Work } from '../lib/works';
+
+interface Props {
+  work: Work;
+  large?: boolean;
+}
+const { work, large = false } = Astro.props;
+const d = work.data;
+const type = d.work_type ? WORK_TYPES[d.work_type] : null;
+const hasScore = !!d.sheet_url;
+const projectTags = d.projects.map((p) => PROJECTS[p] ?? { label: p, className: 'tag--project' });
+---
+{(type || hasScore) && (
+  <span class:list={['tag-stack', 'tag-stack--left', { 'tagpin--lg': large }]}>
+    {type && (
+      <span class:list={['tagpin', 'tagpin--type', type.className]}>
+        <span class="tag">{type.label}</span>
+      </span>
+    )}
+    {hasScore && (
+      <span class="tagpin tagpin--type tagpin--score tag--score">
+        <span class="tag">Score</span>
+      </span>
+    )}
+  </span>
+)}
+{projectTags.length > 0 && (
+  <span class:list={['tag-stack', { 'tagpin--lg': large }]}>
+    {projectTags.map((t) => (
+      <span class:list={['tagpin', 'tagpin--proj', t.className]}>
+        <span class="tag">{t.label}</span>
+      </span>
+    ))}
+  </span>
+)}

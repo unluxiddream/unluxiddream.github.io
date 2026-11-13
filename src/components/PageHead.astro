@@ -1,0 +1,27 @@
+---
+import T from './T.astro';
+import SortMenu from './SortMenu.astro';
+import type { UIKey } from '../lib/i18n';
+
+interface Props {
+  title: string;
+  desc?: UIKey;
+  count?: number;
+  sort?: boolean;
+}
+const { title, desc, count, sort = false } = Astro.props;
+---
+<header class="pagehead wrap">
+  <div class="pagehead-main">
+    <span class="pagehead-mark" aria-hidden="true"></span>
+    <h1 class="pagehead-title">{title}</h1>
+    {desc && <p class="pagehead-desc"><T k={desc} /></p>}
+  </div>
+  <div class="pagehead-side">
+    {typeof count === 'number' && (
+      <p class="pagehead-count"><b data-count>{count}</b> Works</p>
+    )}
+    {sort && <SortMenu />}
+  </div>
+  {Astro.slots.has('default') && <div class="pagehead-below"><slot /></div>}
+</header>

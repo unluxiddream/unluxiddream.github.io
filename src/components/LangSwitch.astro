@@ -1,0 +1,31 @@
+---
+import { LANGS } from '../config/site';
+interface Props {
+  variant?: 'menu' | 'segment';
+}
+const { variant = 'menu' } = Astro.props;
+---
+{variant === 'menu' ? (
+  <div class="langmenu" data-langmenu>
+    <button type="button" class="ctrl langmenu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Language">
+      {LANGS.map((l) => <span class="i18n" data-l={l.key}>{l.label}</span>)}
+      <svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><polygon points="0,0 10,0 5,6" /></svg>
+    </button>
+    <ul class="langmenu-list" role="menu">
+      {LANGS.map((l) => (
+        <li role="none">
+          <button type="button" role="menuitemradio" data-set-lang={l.key} lang={l.locale}>
+            <span class="langmenu-code">{l.label}</span>
+            <span class="langmenu-name">{l.name}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  <div class="langseg" role="group" aria-label="Language">
+    {LANGS.map((l) => (
+      <button type="button" class="ctrl" data-set-lang={l.key} lang={l.locale} title={l.name}>{l.label}</button>
+    ))}
+  </div>
+)}

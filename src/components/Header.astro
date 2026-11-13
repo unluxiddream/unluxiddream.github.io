@@ -1,0 +1,213 @@
+---
+import LangSwitch from './LangSwitch.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import SearchButton from './SearchButton.astro';
+import { withBase } from '../lib/url';
+import { SITE } from '../config/site';
+
+interface Props {
+  active?: string;
+}
+const { active } = Astro.props;
+
+const NAV = [
+  { key: 'about', label: 'About', href: withBase('ko/about/'), about: true },
+  { key: 'music', label: 'Music & Audio', href: withBase('music/') },
+  { key: 'visual', label: 'Visual & Video', href: withBase('visual/') },
+  { key: 'other', label: 'Other Works', href: withBase('other/') },
+  { key: 'contact', label: 'Contact', href: withBase('contact/') },
+];
+---
+<header class="topbar" data-topbar>
+  <div class="topbar-inner">
+    <a class="logo" href={withBase('')} aria-label={`${SITE.name} — Home`}>
+      <img class="logo-mark" src={withBase('favicon.svg')} alt="" width="28" height="28" />
+      <span class="logo-text">Unlu<b>X</b>idDream</span>
+    </a>
+    <nav class="topnav" aria-label="Main">
+      {NAV.map((n) => (
+        <a href={n.href} class:list={['topnav-link', { 'is-active': active === n.key }]} data-about-link={n.about ? '' : undefined} aria-current={active === n.key ? 'page' : undefined}>
+          {n.label}
+        </a>
+      ))}
+    </nav>
+    <div class="topbar-ctrls">
+      <SearchButton />
+      <LangSwitch />
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<button type="button" class="bookmark" data-drawer-open aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+  <span class="bookmark-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+
+<div class="drawer-scrim" data-drawer-scrim hidden></div>
+<aside class="drawer" id="drawer" data-drawer aria-label="Menu" aria-hidden="true" inert>
+  <div class="drawer-head">
+    <span class="drawer-title">Menu</span>
+    <button type="button" class="ctrl drawer-close" data-drawer-close aria-label="Close menu">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1 L13 13 M13 1 L1 13" /></svg>
+    </button>
+  </div>
+  <nav class="drawer-nav" aria-label="Main">
+    <a href={withBase('')} class:list={['drawer-link', { 'is-active': active === 'home' }]}>
+      <span class="drawer-label">Home</span>
+    </a>
+    {NAV.map((n) => (
+      <a href={n.href} class:list={['drawer-link', { 'is-active': active === n.key }]} data-about-link={n.about ? '' : undefined}>
+        <span class="drawer-label">{n.label}</span>
+      </a>
+    ))}
+  </nav>
+  <div class="drawer-ctrls">
+    <a class="ctrl" href={withBase('search/')} aria-label="Search">
+      <svg class="ctrl-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="5" /><path d="M10.2 10.2 L15 15" /></svg>
+    </a>
+    <LangSwitch variant="segment" />
+    <ThemeToggle />
+  </div>
+</aside>
+
+<script>
+  const root = document.documentElement;
+  const KEYS = ['ko', 'en', 'jp', 'cn'] as const;
+  type Lang = (typeof KEYS)[number];
+  const LOCALE: Record<Lang, string> = { ko: 'ko', en: 'en', jp: 'ja', cn: 'zh' };
+  const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+  const store = {
+    get(k: string) { try { return localStorage.getItem(k); } catch { return null; } },
+    set(k: string, v: string) { try { localStorage.setItem(k, v); } catch { /* storage blocked */ } },
+  };
+
+  // ── 언어 ───────────────────────────────────────────
+  function syncLangUI(lang: Lang) {
+    document.querySelectorAll<HTMLAnchorElement>('[data-about-link]').forEach((a) => (a.href = `${BASE}/${lang}/about/`));
+    document.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((b) =>
+      b.setAttribute('aria-checked', String(b.dataset.setLang === lang)),
+    );
+  }
+  function setLang(lang: Lang) {
+    if (!KEYS.includes(lang)) return;
+    store.set('lang', lang);
+    const aboutPage = document.body.dataset.aboutPage;
+    if (aboutPage && aboutPage !== lang) {
+      location.href = `${BASE}/${lang}/about/`;
+      return;
+    }
+    root.dataset.lang = lang;
+    root.lang = LOCALE[lang];
+    syncLangUI(lang);
+    document.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
+  }
+  syncLangUI((root.dataset.lang as Lang) || 'ko');
+
+  document.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((b) =>
+    b.addEventListener('click', () => {
+      setLang(b.dataset.setLang as Lang);
+      closeMenus();
+    }),
+  );
+
+  // 언어 드롭다운
+  const menus = document.querySelectorAll<HTMLElement>('[data-langmenu]');
+  function closeMenus() {
+    menus.forEach((m) => {
+      m.classList.remove('is-open');
+      m.querySelector('button')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+  menus.forEach((m) => {
+    const btn = m.querySelector<HTMLButtonElement>('.langmenu-btn')!;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !m.classList.contains('is-open');
+      closeMenus();
+      m.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+  document.addEventListener('click', closeMenus);
+
+  // ── 검색창 placeholder 언어 반영 ─────────────────────
+  function syncPlaceholders(lang: string) {
+    document.querySelectorAll<HTMLInputElement>('.search-input').forEach((i) => {
+      const v = i.getAttribute(`data-ph-${lang}`);
+      if (v) i.placeholder = v;
+    });
+  }
+  syncPlaceholders(root.dataset.lang || 'ko');
+  document.addEventListener('langchange', (e) => syncPlaceholders((e as CustomEvent).detail));
+
+  // ── 상단 검색 패널 ──────────────────────────────────
+  const sbox = document.querySelector<HTMLElement>('[data-searchbox]');
+  if (sbox) {
+    const sbtn = sbox.querySelector<HTMLButtonElement>('.search-toggle')!;
+    const spanel = sbox.querySelector<HTMLElement>('.search-panel')!;
+    const setSearch = (open: boolean) => {
+      spanel.hidden = !open;
+      sbtn.setAttribute('aria-expanded', String(open));
+      sbox.classList.toggle('is-open', open);
+      if (open) {
+        // 검색 페이지에 있다면 페이지의 큰 입력창으로 이동
+        const pageInput = document.querySelector<HTMLInputElement>('.search-form--page .search-input');
+        if (pageInput) { setSearch(false); pageInput.focus(); return; }
+        spanel.querySelector<HTMLInputElement>('input[type="search"]')?.focus();
+      }
+    };
+    sbtn.addEventListener('click', (e) => { e.stopPropagation(); setSearch(!sbox.classList.contains('is-open')); });
+    spanel.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => setSearch(false));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setSearch(false); });
+  }
+
+  // ── 테마 ───────────────────────────────────────────
+  document.querySelectorAll('[data-theme-toggle]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+      root.dataset.theme = next;
+      store.set('theme', next);
+    }),
+  );
+
+  // ── 스크롤 시 상단 바 숨김 + 북마크 ───────────────────
+  const bar = document.querySelector<HTMLElement>('[data-topbar]')!;
+  let ticking = false;
+  function onScroll() {
+    root.classList.toggle('is-scrolled', window.scrollY > bar.offsetHeight + 24);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+  onScroll();
+
+  // ── 드로어 ─────────────────────────────────────────
+  const drawer = document.querySelector<HTMLElement>('[data-drawer]')!;
+  const scrim = document.querySelector<HTMLElement>('[data-drawer-scrim]')!;
+  const opener = document.querySelector<HTMLButtonElement>('[data-drawer-open]')!;
+  function setDrawer(open: boolean) {
+    root.classList.toggle('drawer-open', open);
+    drawer.toggleAttribute('inert', !open);
+    drawer.setAttribute('aria-hidden', String(!open));
+    opener.setAttribute('aria-expanded', String(open));
+    if (open) {
+      scrim.hidden = false;
+      drawer.querySelector<HTMLElement>('.drawer-close')?.focus();
+    } else {
+      setTimeout(() => { if (!root.classList.contains('drawer-open')) scrim.hidden = true; }, 350);
+      opener.focus({ preventScroll: true });
+    }
+  }
+  opener.addEventListener('click', () => setDrawer(true));
+  document.querySelector('[data-drawer-close]')?.addEventListener('click', () => setDrawer(false));
+  scrim.addEventListener('click', () => setDrawer(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (root.classList.contains('drawer-open')) setDrawer(false);
+      closeMenus();
+    }
+  });
+</script>

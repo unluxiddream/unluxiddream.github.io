@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import SearchForm from '../components/SearchForm.astro';
+import WorkCard from '../components/WorkCard.astro';
+import T from '../components/T.astro';
+import { getWorks } from '../lib/works';
+
+const works = await getWorks();
+---
+<BaseLayout title="Search" active="search">
+  <PageHead title="Search" count={0} sort>
+    <SearchForm variant="page" />
+  </PageHead>
+  <section class="wrap section section--grid">
+    <p class="empty" data-search-prompt><T k="search.prompt" /></p>
+    <p class="empty" data-search-empty hidden><T k="search.empty" /></p>
+    <div class="grid" id="works" data-grid>
+      {works.map((w) => <WorkCard work={w} showGenres searchable />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.search-form--page')!;
+  const input = form.querySelector<HTMLInputElement>('input[name="q"]')!;
+  const cards = [...document.querySelectorAll<HTMLElement>('#works [data-card]')];
+  const prompt = document.querySelector<HTMLElement>('[data-search-prompt]')!;
+  const empty = document.querySelector<HTMLElement>('[data-search-empty]')!;
+  const counter = document.querySelector<HTMLElement>('[data-count]');
+
+  // 대소문자·전각/반각·띄어쓰기 차이를 무시하고 비교
+  const norm = (s: string) => s.normalize('NFKC').toLowerCase().replace(/\s+/g, '');
+  const FIELDS: Record<string, string[]> = {
+    all: ['title', 'genre', 'role', 'etc'],
+    title: ['title'],
+    genre: ['genre'],
+    role: ['role'],
+  };
+  const index = cards.map((card) => {
+    const get = (f: string) => norm(card.dataset[`s${f[0].toUpperCase()}${f.slice(1)}`] || '');
+    return { card, title: get('title'), genre: get('genre'), role: get('role'), etc: get('etc') } as Record<string, any>;
+  });
+
+  const scope = () => form.querySelector<HTMLInputElement>('input[name="in"]:checked')?.value || 'all';
+
+  function run(updateUrl = true) {
+    const q = input.value.trim();
+    const terms = q.split(/\s+/).map(norm).filter(Boolean);
+    const fields = FIELDS[scope()] ?? FIELDS.all;
+    let shown = 0;
+    for (const item of index) {
+      const hay = fields.map((f) => item[f]).join('\n');
+      // 띄어쓰기로 나눈 단어가 모두 들어 있어야 일치 (AND 검색)
+      const ok = terms.length > 0 && terms.every((t) => hay.includes(t));
+      item.card.hidden = !ok;
+      if (ok) shown++;
+    }
+    prompt.hidden = terms.length > 0;
+    empty.hidden = terms.length === 0 || shown > 0;
+    if (counter) counter.textContent = String(shown);
+    if (updateUrl) {
+      const url = new URL(location.href);
+      if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+      url.searchParams.set('in', scope());
+      history.replaceState(null, '', url);
+    }
+  }
+
+  // 주소의 ?q=…&in=… 로 시작 상태 복원
+  const params = new URLSearchParams(location.search);
+  input.value = params.get('q') ?? '';
+  const preset = form.querySelector<HTMLInputElement>(`input[name="in"][value="${params.get('in') ?? 'all'}"]`);
+  if (preset) preset.checked = true;
+  run(false);
+  if (!input.value) input.focus();
+
+  let timer = 0;
+  input.addEventListener('input', () => { clearTimeout(timer); timer = window.setTimeout(run, 120); });
+  form.addEventListener('change', () => run());
+  form.addEventListener('submit', (e) => { e.preventDefault(); run(); input.blur(); });
+</script>

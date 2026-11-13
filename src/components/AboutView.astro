@@ -1,0 +1,169 @@
+---
+import { Image } from 'astro:assets';
+import T from './T.astro';
+import LinkList from './LinkList.astro';
+import { LINKS, SITE, type LangKey } from '../config/site';
+import profileCrop from '../assets/images/241030_Profile_Crop.webp';
+import type { AboutData } from '../lib/about';
+import { getWorks } from '../lib/works';
+import { withBase } from '../lib/url';
+
+interface Props {
+  lang: LangKey;
+  data: AboutData;
+}
+const { lang, data } = Astro.props;
+const works = await getWorks();
+const findWork = (id?: string) => (id ? works.find((w) => w.id === id) : undefined);
+const workHref = (id?: string) => findWork(id)?.href;
+/** 포트폴리오 제목의 {title} 을 해당 작품의 현재 언어 제목으로 바꿈 */
+const fillTitle = (t: string, id?: string) => {
+  const w = findWork(id);
+  return w ? t.replaceAll('{title}', w.titles[lang]) : t.replaceAll('{title}', '');
+};
+const internal = (to?: string) => (to ? withBase(to) : undefined);
+const arrow = '<svg viewBox="0 0 12 10" aria-hidden="true"><polygon points="0,4 8,4 8,0 12,5 8,10 8,6 0,6" /></svg>';
+const ext = '<svg class="tl-ext" viewBox="0 0 10 10" aria-hidden="true"><polygon points="2,0 10,0 10,8 8,8 8,3.4 1.4,10 0,8.6 6.6,2 2,2" /></svg>';
+const L = data.labels;
+---
+<div class="about wrap">
+  <aside class="about-side">
+    <div class="about-card">
+      <figure class="about-photo">
+        <Image src={profileCrop} alt="UnluXidDream" widths={[300, 600, 900]} sizes="(max-width: 900px) 120px, 300px" loading="eager" />
+      </figure>
+      <p class="about-name">Unlu<span class="x">X</span>idDream</p>
+      <p class="about-alias">{SITE.alias}</p>
+      <a class="about-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </div>
+  </aside>
+
+  <div class="about-main">
+    <section class="about-intro">
+      {data.intro.map((p) => <p>{p}</p>)}
+    </section>
+
+    <section class="about-sec">
+      <h2 class="about-h">{L.fields}</h2>
+      <ul class="chips">
+        {data.fields.map((f) => {
+          const href = internal(f.to);
+          return <li>{href ? <a href={href}>{f.label}</a> : <span>{f.label}</span>}</li>;
+        })}
+      </ul>
+    </section>
+
+    <section class="about-sec">
+      <h2 class="about-h">{L.education}</h2>
+      {data.education.map((e) => <p class="about-p">{e}</p>)}
+    </section>
+
+    <section class="about-sec">
+      <h2 class="about-h">{L.discography}</h2>
+      <ol class="timeline">
+        {data.discography.map((r) => {
+          const href = workHref(r.workId);
+          return (
+          <li>
+            <span class="tl-year">{r.year}</span>
+            <span class="tl-body">
+              {href ? <a class="tl-title tl-link" href={href}>{r.title}</a> : <span class="tl-title">{r.title}</span>}
+              <span class="tl-format">{r.format}</span>
+              {r.note && <span class="tl-note">{r.note}</span>}
+            </span>
+          </li>
+          );
+        })}
+      </ol>
+    </section>
+
+    <div class="about-cols">
+      <section class="about-sec">
+        <h2 class="about-h">{L.projects}</h2>
+        <ol class="timeline timeline--compact">
+          {data.projects.map((r) => (
+            <li>
+              <span class="tl-year">{r.year}</span>
+              <span class="tl-body">
+                {r.url
+                  ? <a class="tl-title tl-link" href={r.url} target="_blank" rel="noopener">{r.title}<Fragment set:html={ext} /></a>
+                  : <span class="tl-title">{r.title}</span>}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </section>
+      <section class="about-sec">
+        <h2 class="about-h">{L.activities}</h2>
+        <ol class="timeline timeline--compact">
+          {data.activities.map((r) => (
+            <li>
+              <span class="tl-year">{r.year}</span>
+              <span class="tl-body">
+                {r.url
+                  ? <a class="tl-title tl-link" href={r.url} target="_blank" rel="noopener">{r.title}<Fragment set:html={ext} /></a>
+                  : <span class="tl-title">{r.title}</span>}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <section class="about-sec">
+      <h2 class="about-h">{L.portfolio}</h2>
+      <ul class="pf">
+        {data.portfolio.map((p) => {
+          const work = workHref(p.workId);
+          // 유튜브 영상: 작품 md의 youtube_link, 없으면 본문 첫 유튜브 iframe
+          const w = findWork(p.workId);
+          const ytId = w?.youtubeId ?? w?.entry.body?.match(/youtube(?:-nocookie)?\.com\/embed\/([\w-]{11})/)?.[1];
+          const href = work ?? internal(p.to);
+          return (
+            <li class:list={['pf-item', { 'pf-item--empty': !p.title, 'pf-item--link': !!href }]}>
+              <p class="pf-genre">{p.genre}</p>
+              {p.title && (href ? <a class="pf-title" href={href}>{fillTitle(p.title, p.workId)}</a> : <p class="pf-title">{fillTitle(p.title, p.workId)}</p>)}
+              {p.release && <p class="pf-release">{p.release}</p>}
+              {ytId && (
+                <div class="pf-video">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${ytId}`}
+                    title={fillTitle(p.title ?? p.genre, p.workId)}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              )}
+              {href && (
+                <a class="pf-link" href={href} tabindex={p.title ? -1 : undefined}>
+                  {work ? L.viewWork : L.viewTab}
+                  <Fragment set:html={arrow} />
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <section class="about-sec">
+      <h2 class="about-h"><T k="about.links" /></h2>
+      <div class="about-links">
+        <div class="about-linkgroup about-linkgroup--wide">
+          <h3 class="about-subh"><T k="about.listen" /></h3>
+          <LinkList links={LINKS.listen} variant="grid" />
+        </div>
+        <div class="about-linkgroup">
+          <h3 class="about-subh"><T k="about.sheet" /></h3>
+          <LinkList links={LINKS.sheet} />
+        </div>
+        <div class="about-linkgroup">
+          <h3 class="about-subh"><T k="about.blog" /></h3>
+          <LinkList links={LINKS.blog} />
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

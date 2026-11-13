@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import AboutView from '../../components/AboutView.astro';
+import type { AboutData } from '../../lib/about';
+
+/* ───────── 이 아래 data 객체만 수정하면 About 페이지 내용이 바뀝니다 ───────── */
+const data: AboutData = {
+  intro: [
+    '小学入学时开始学习古典钢琴，升入初中后转向流行钢琴，并开始自学作曲。',
+    '虽然考入了工科大学，却始终无法放弃音乐，于是以双专业的形式选择了古典作曲，走到了今天。',
+    '将迄今所学的一切音乐相互连接、融合，追求无法以特定类型或形式定义的「属于自己的音乐」。',
+  ],
+  labels: {
+    fields: '活动领域', education: '学历', discography: '唱片', projects: '项目',
+    activities: '其他活动', portfolio: '代表作品', contact: '联系方式',
+    viewWork: '查看作品', viewTab: '浏览列表',
+  },
+  fields: [
+    { label: '演唱', to: 'music/?filter=vocal' },
+    { label: '作曲', to: 'music/?filter=compose' },
+    { label: '编曲', to: 'music/?filter=arrange' },
+    { label: '作词', to: 'music/?filter=lyrics' },
+    { label: '设计', to: 'visual/?filter=design' },
+    { label: '插画', to: 'visual/?filter=illust' },
+    { label: '视频', to: 'visual/?filter=video' },
+    { label: '日语翻译', to: 'other/?filter=translate' },
+  ],
+  education: ['祥明大学 人文社会科学学院 韩日文化内容专业、文化艺术学院 音乐学部 新媒体作曲专业 在读（2023〜）'],
+  discography: [
+    { year: '2026', title: '音乐剧《독왕전기》选曲 일생희 I (Original Musical Soundtrack)', format: 'Single', workId: 'ilsaenghui1' },
+    { year: '2026', title: '有', format: 'Single', workId: 'yuuwaeru' },
+    { year: '2026', title: '为管弦乐团而作的《神化》', format: 'Single', workId: 'shinhwafororchestra' },
+    { year: '2026', title: '소프라노 리코더와 피아노를 위한 일광(日光)', format: 'Single', workId: 'formysunlight' },
+    { year: '2025', title: 'この花は死なせました', format: 'Single', note: '参与作曲・作词・演唱', workId: 'konohanahashinasemashita' },
+    { year: '2025', title: '꿈에서라도 다시 만날 수 있다면', format: 'Single', workId: 'ifmetagainindream' },
+    { year: '2024', title: 'Suite for Piano Solo', format: 'EP', workId: 'suiteforpianosolo' },
+    { year: '2024', title: '시기, 운, 운명', format: 'Single', workId: 'timing-luck-fate' },
+    { year: '2023', title: '천 년의 숲', format: 'Single', workId: '1000forest' },
+  ],
+  projects: [{ year: '2026〜', title: 'Project・LuDiA' }],
+  activities: [
+    { year: '2026〜', title: 'UnTuned Live Challenge', url: 'https://www.youtube.com/playlist?list=PL8mkiqUJ8o-eom0PIFUjN8bscw4l5crky' },
+    { year: '2026〜', title: '虚拟歌手×制作人组合 LeXidN', url: 'https://www.youtube.com/playlist?list=PLNbkmfiKfi0M' },
+  ],
+  portfolio: [
+    {
+      genre: '管弦乐作曲',
+      title: 'UnluXidDream 5th Single 「{title}」',
+      workId: 'shinhwafororchestra',
+    },
+    {
+      genre: '音乐剧曲目作曲・演唱',
+      title: '【Official】 {title} 【Project・LuDiA】',
+      workId: 'ilsaenghui1',
+    },
+    {
+      genre: '古典EDM作曲・演奏',
+      title: '【Official】 UnluXidDream 「{title}」 【Project・LuDiA】',
+      workId: 'yuuwaeru',
+    },
+    {
+      genre: 'J-POP演唱',
+      title: 'I\'MKL 1st Single 「{title}」',
+      workId: 'konohanahashinasemashita',
+    },
+    { genre: '专辑封面设计', to: 'visual/?filter=albumart' },
+    { genre: '书法', to: 'visual/?filter=calli' },
+  ],
+};
+/* ───────────────────────────────────────────────────────────────────── */
+---
+<BaseLayout title="About" active="about" pageLang="cn">
+  <PageHead title="About" />
+  <AboutView lang="cn" data={data} />
+</BaseLayout>

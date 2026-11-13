@@ -1,0 +1,96 @@
+---
+import { LANGS } from '../config/site';
+import { filterKeysFor, type Tab, type Work } from '../lib/works';
+import { withBase } from '../lib/url';
+import { roleDict } from '../lib/i18n';
+import CoverTags from './CoverTags.astro';
+
+interface Props {
+  work: Work;
+  /** 필터 버튼이 있는 탭 페이지에서만 지정 */
+  tab?: Tab;
+  /** 제목 아래에 genres 값을 표시할지 */
+  showGenres?: boolean;
+  /** 검색 페이지용 데이터(data-s-*)를 붙일지 */
+  searchable?: boolean;
+}
+const { work, tab, showGenres = false, searchable = false } = Astro.props;
+
+const d = work.data;
+const search = searchable
+  ? {
+      'data-s-title': [...new Set([d.title, d.subtitle ?? '', ...Object.values(work.titles)])].join('\n'),
+      'data-s-genre': work.genres.join('\n'),
+      'data-s-role': [...new Set(d.roles.flatMap((r) => [r, ...Object.values(roleDict(r))]))].join('\n'),
+      'data-s-etc': [...d.projects, ...d.categories, d.work_type ?? ''].join('\n'),
+    }
+  : {};
+const same = (a: string, b: string) => a.trim().normalize() === b.trim().normalize();
+
+const ytFallback = work.coverFallback ?? '';
+// maxresdefault 가 없는 영상은 YouTube가 120px짜리 회색 이미지를 주므로 hqdefault로 교체
+const ytHandler = `if(this.dataset.fb&&(this.naturalWidth<=120)){this.src=this.dataset.fb;this.dataset.fb='';this.classList.add('is-hq')}`;
+---
+<article
+  class="card"
+  data-card
+  data-key={work.sortKey}
+  data-filters={tab ? filterKeysFor(work, tab).join(' ') : undefined}
+  {...Object.fromEntries(LANGS.map((l) => [`data-t-${l.key}`, work.titles[l.key]]))}
+  {...search}
+>
+  <div class="card-cover">
+    <a class="card-media" href={work.href} tabindex="-1" aria-hidden="true">
+      {work.cover ? (
+        <img
+          src={work.cover}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          data-fb={work.coverFromYoutube ? ytFallback : undefined}
+          onload={work.coverFromYoutube ? ytHandler : undefined}
+          onerror={work.coverFromYoutube ? ytHandler.replace('(this.naturalWidth<=120)', 'true') : undefined}
+        />
+      ) : (
+        <span class="card-placeholder"><img src={withBase('favicon.svg')} alt="" /></span>
+      )}
+      <span class="card-corner" aria-hidden="true"></span>
+    </a>
+    <CoverTags work={work} />
+  </div>
+
+  <div class="card-body">
+    <a class="card-titles" href={work.href}>
+      {LANGS.map((l) => {
+        const local = work.titles[l.key];
+        return (
+          <span class="i18n" data-l={l.key} lang={l.locale}>
+            <span class="card-title">
+              {local}
+              {d.subtitle && <span class="card-sub">{d.subtitle}</span>}
+            </span>
+            {!same(local, d.title) && <span class="card-orig" lang="">{d.title}</span>}
+          </span>
+        );
+      })}
+    </a>
+    {showGenres && work.genres.length > 0 && <p class="card-genres">{work.genres.join(' · ')}</p>}
+    {/* 카드 버튼 우선순위: Streaming → Download(community_url) → YouTube */}
+    {d.streaming_url ? (
+      <a class="btn btn--stream" href={d.streaming_url} target="_blank" rel="noopener">
+        <svg viewBox="0 0 10 12" aria-hidden="true"><polygon points="0,0 10,6 0,12" /></svg>
+        Streaming
+      </a>
+    ) : d.community_url ? (
+      <a class="btn btn--stream" href={d.community_url} target="_blank" rel="noopener">
+        <svg viewBox="0 0 12 12" aria-hidden="true"><polygon points="5,0 7,0 7,6 10,6 6,10 2,6 5,6" /><rect x="1" y="11" width="10" height="1" /></svg>
+        Download
+      </a>
+    ) : d.youtube_link && (
+      <a class="btn btn--stream" href={d.youtube_link} target="_blank" rel="noopener">
+        <svg viewBox="0 0 10 12" aria-hidden="true"><polygon points="0,0 10,6 0,12" /></svg>
+        YouTube
+      </a>
+    )}
+  </div>
+</article>

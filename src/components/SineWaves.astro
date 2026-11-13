@@ -1,0 +1,51 @@
+---
+/**
+ * Home 상단 배경: 주기·진폭·위상이 서로 다른 사인파 4개가 겹친 파형 (왼쪽 → 오른쪽).
+ * - viewBox 를 고정 좌표계(1440 × 600)로 두고 preserveAspectRatio="none" 으로
+ *   화면 가로폭 100%에 맞춰 늘어납니다.
+ * - vector-effect="non-scaling-stroke" 로 늘어나도 선 두께는 그대로 얇게 유지됩니다.
+ * 파형을 바꾸려면 아래 WAVES 의 값만 고치면 됩니다.
+ *   cycles  : 화면 가로 전체에 들어가는 주기 수 (클수록 촘촘)
+ *   amp     : 진폭 (세로 600 기준 px)
+ *   phase   : 시작 위상 (라디안)
+ *   opacity : 투명도 (깊이감)
+ *   tone    : 'accent'(붉은색 계열) / 'gold'(금색 계열)
+ */
+interface Props {
+  class?: string;
+}
+const { class: cls = '' } = Astro.props;
+
+const W = 1440;
+const H = 600;
+const MID = H * 0.56; // 파형의 중심선 (약간 아래)
+
+const WAVES = [
+  { cycles: 1.25, amp: 150, phase: 0.4, opacity: 0.55, width: 1.4, tone: 'accent' },
+  { cycles: 2.6, amp: 95, phase: 2.1, opacity: 0.38, width: 1.1, tone: 'gold' },
+  { cycles: 4.3, amp: 60, phase: 4.0, opacity: 0.26, width: 1, tone: 'accent' },
+  { cycles: 7.5, amp: 34, phase: 1.2, opacity: 0.16, width: 0.8, tone: 'gold' },
+] as const;
+
+const STEP = 4; // 샘플 간격(px). 작을수록 매끄럽지만 SVG가 커짐
+const path = (cycles: number, amp: number, phase: number) => {
+  const pts: string[] = [];
+  for (let x = 0; x <= W; x += STEP) {
+    const y = MID + amp * Math.sin((2 * Math.PI * cycles * x) / W + phase);
+    pts.push(`${x === 0 ? 'M' : 'L'}${x} ${y.toFixed(1)}`);
+  }
+  return pts.join('');
+};
+---
+<svg class:list={['sine-waves', cls]} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <line class="sine-axis" x1="0" y1={MID} x2={W} y2={MID} vector-effect="non-scaling-stroke" />
+  {WAVES.map((w) => (
+    <path
+      d={path(w.cycles, w.amp, w.phase)}
+      class={`sine sine--${w.tone}`}
+      stroke-width={w.width}
+      opacity={w.opacity}
+      vector-effect="non-scaling-stroke"
+    />
+  ))}
+</svg>

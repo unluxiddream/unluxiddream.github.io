@@ -1,0 +1,127 @@
+---
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import T from '../components/T.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import SineWaves from '../components/SineWaves.astro';
+import { DISCIPLINES, SITE } from '../config/site';
+import { getWorks } from '../lib/works';
+import { withBase } from '../lib/url';
+import { UI, type UIKey } from '../lib/i18n';
+// Home 캐릭터: 기본은 실루엣(shadow), 호버·탭하면 일반 버전 (둘 다 Obsidian 볼트 Attachments 폴더)
+import charImg from '../../Official_UnluD/Attachments/261108_luD.png';
+import charShadow from '../../Official_UnluD/Attachments/261108_luD_shadow.png';
+
+// 실루엣은 「모양 틀(mask)」로만 쓰고 색은 CSS에서 테마별로 채움 (검정 실루엣이 다크 배경에 묻히지 않도록)
+const shadowMask = await getImage({ src: charShadow, width: 990, format: 'webp' });
+
+const works = await getWorks();
+const featured = works.filter((w) => w.data.featured);
+const shown = (featured.length ? featured : works).slice(0, 8);
+
+const disciplines = DISCIPLINES.map((d) => ({
+  ...d,
+  count: works.filter((w) => w.data.roles.some((r) => d.match.includes(r))).length,
+  href: withBase(d.to),
+}));
+---
+<BaseLayout active="home">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"><SineWaves /></div>
+    <div class="wrap hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow"><span class="eyebrow-bar"></span><T k="home.role" /></p>
+        <h1 class="hero-name">Unlu<span class="x">X</span>id<wbr />Dream</h1>
+        <p class="hero-alias">{SITE.alias}</p>
+        <p class="hero-lead"><T k="home.lead" /></p>
+        <div class="hero-actions">
+          <a class="btn btn--primary btn--lg" href={withBase('music/')}>
+            <T k="home.cta.works" />
+            <svg viewBox="0 0 12 10" aria-hidden="true"><polygon points="0,4 8,4 8,0 12,5 8,10 8,6 0,6" /></svg>
+          </a>
+          <a class="btn btn--line btn--lg" href={withBase('ko/about/')} data-about-link><T k="home.cta.about" /></a>
+        </div>
+      </div>
+      <figure class="hero-char" data-hero-char tabindex="0">
+        <span class="hero-char-shadow" style={`--shadow-src: url("${shadowMask.src}")`} aria-hidden="true"></span>
+        <Image
+          src={charImg}
+          alt="UnluXidDream"
+          class="hero-char-img"
+          widths={[480, 720, 990]}
+          sizes="(max-width: 900px) 80vw, 560px"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    </div>
+    <div class="hero-ticker" aria-hidden="true">
+      <div class="ticker-track">
+        {[0, 1].map(() => (
+          <span>COMPOSE ◆ VOCAL ◆ ARRANGE ◆ LYRICS ◆ MIX ◆ MASTER ◆ ILLUST ◆ DESIGN ◆ VIDEO ◆ SCORE ◆ PUBLISH ◆&nbsp;</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- I. HIGHLIGHTS -->
+  <section class="section wrap">
+    <div class="section-head">
+      <h2 class="section-title"><span class="section-idx">I.</span>Highlights</h2>
+      <a class="section-more" href={withBase('music/')}>
+        <T k="home.viewall" />
+        <svg viewBox="0 0 12 10" aria-hidden="true"><polygon points="0,4 8,4 8,0 12,5 8,10 8,6 0,6" /></svg>
+      </a>
+    </div>
+    <WorkGrid works={shown} id="featured" showGenres />
+  </section>
+
+  <!-- II. WORKS -->
+  <section class="section wrap">
+    <div class="section-head">
+      <h2 class="section-title"><span class="section-idx">II.</span>Works</h2>
+    </div>
+    <ol class="disc">
+      {disciplines.map((d) => (
+        <li class:list={['disc-item', { 'disc-item--main': d.main }]}>
+          <a href={d.href}>
+            {d.main && <span class="disc-main"><T k="home.main" /></span>}
+            <span class="disc-name"><T k={`disc.${d.key}` as UIKey} /></span>
+            {`disc.${d.key}.sub` in UI && <span class="disc-sub"><T k={`disc.${d.key}.sub` as UIKey} /></span>}
+            <span class="disc-count"><b>{d.count}</b> Works</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- CONTACT BAND -->
+  <section class="band">
+    <div class="wrap band-inner">
+      <h2 class="band-title">Contact</h2>
+      <p class="band-lead"><T k="contact.lead" /></p>
+      <div class="band-actions">
+        <a class="band-mail" href={`mailto:${SITE.email}`}>
+          <svg viewBox="0 0 16 12" aria-hidden="true"><path d="M0.5 0.5h15v11h-15z M0.5 0.5l7.5 6 7.5-6" /></svg>
+          {SITE.email}
+        </a>
+        <a class="btn btn--line btn--onband" href={withBase('contact/')}>
+          Contact
+          <svg viewBox="0 0 12 10" aria-hidden="true"><polygon points="0,4 8,4 8,0 12,5 8,10 8,6 0,6" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // 터치 기기(호버 없음): 탭할 때마다 실루엣 ↔ 일반 버전 전환. 키보드는 Enter/Space
+  document.querySelectorAll<HTMLElement>('[data-hero-char]').forEach((el) => {
+    const toggle = () => el.classList.toggle('is-revealed');
+    el.addEventListener('click', toggle);
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+</script>

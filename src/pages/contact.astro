@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import T from '../components/T.astro';
+import LinkList from '../components/LinkList.astro';
+import { DISCIPLINES, LINKS, SITE } from '../config/site';
+import type { UIKey } from '../lib/i18n';
+
+const groups: { k: UIKey; links: typeof LINKS.business }[] = [
+  { k: 'contact.business', links: LINKS.business },
+  { k: 'contact.follow', links: LINKS.follow },
+  { k: 'contact.support', links: LINKS.support },
+];
+---
+<BaseLayout title="Contact" active="contact">
+  <PageHead title="Contact" />
+  <section class="wrap section contact">
+    <div class="contact-main">
+      <p class="contact-lead"><T k="contact.lead" /></p>
+      <p class="contact-mail">
+        <a href={`mailto:${SITE.email}`}>
+          <svg viewBox="0 0 16 12" aria-hidden="true"><path d="M0.5 0.5h15v11h-15z M0.5 0.5l7.5 6 7.5-6" /></svg>
+          {SITE.email}
+        </a>
+      </p>
+      <div class="contact-actions">
+        <a class="btn btn--primary btn--lg" href={`mailto:${SITE.email}`}><T k="contact.mail" /></a>
+        <button type="button" class="btn btn--line btn--lg" data-copy={SITE.email}>
+          <span data-copy-idle><T k="contact.copy" /></span>
+          <span data-copy-done hidden><T k="contact.copied" /></span>
+        </button>
+      </div>
+
+      <div class="contact-groups">
+        {groups.map((g) => (
+          <div class="contact-group">
+            <h2 class="contact-h"><T k={g.k} /></h2>
+            <LinkList links={g.links} />
+          </div>
+        ))}
+      </div>
+    </div>
+    <aside class="contact-side">
+      <h2 class="contact-h"><T k="contact.areas" /></h2>
+      <ul class="contact-areas">
+        {DISCIPLINES.map((d) => <li><T k={`disc.${d.key}` as UIKey} /></li>)}
+      </ul>
+    </aside>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) =>
+    b.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(b.dataset.copy!);
+        b.querySelector<HTMLElement>('[data-copy-idle]')!.hidden = true;
+        b.querySelector<HTMLElement>('[data-copy-done]')!.hidden = false;
+        setTimeout(() => {
+          b.querySelector<HTMLElement>('[data-copy-idle]')!.hidden = false;
+          b.querySelector<HTMLElement>('[data-copy-done]')!.hidden = true;
+        }, 1800);
+      } catch { location.href = `mailto:${b.dataset.copy}`; }
+    }),
+  );
+</script>

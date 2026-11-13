@@ -1,0 +1,122 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import T from '../../components/T.astro';
+import CoverTags from '../../components/CoverTags.astro';
+import { LANGS, PROJECTS } from '../../config/site';
+import { getWorks, sortRoles, type Work } from '../../lib/works';
+import { formatDate } from '../../lib/date';
+import { roleDict } from '../../lib/i18n';
+import { withBase } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const works = await getWorks();
+  return works.map((work) => ({ params: { slug: work.id }, props: { work } }));
+}
+
+interface Props {
+  work: Work;
+}
+const { work } = Astro.props;
+const d = work.data;
+const { Content } = await render(work.entry);
+const projects = d.projects.map((p) => ({ name: p, ...(PROJECTS[p] ?? { label: p, className: 'tag--project' }) }));
+const same = (a: string, b: string) => a.trim().normalize() === b.trim().normalize();
+const backTab = work.tabs[0];
+const backHref = withBase(`${backTab}/`);
+const tabLabel = { music: 'Music & Audio', visual: 'Visual & Video', other: 'Other Works' }[backTab];
+const ytFallback = work.coverFallback ?? '';
+const ytHandler = `if(this.dataset.fb&&(this.naturalWidth<=120)){this.src=this.dataset.fb;this.dataset.fb='';this.classList.add('is-hq')}`;
+---
+<BaseLayout title={d.title} active={backTab} image={work.cover ?? undefined}>
+  <article class="work wrap">
+    <nav class="crumb">
+      <a href={backHref}>
+        <svg viewBox="0 0 6 10" aria-hidden="true"><polygon points="6,0 0,5 6,10" /></svg>
+        {tabLabel}
+      </a>
+    </nav>
+
+    <div class="work-hero">
+      <div class="work-cover">
+        <div class="work-media">
+          {work.cover ? (
+            <img src={work.cover} alt="" data-fb={work.coverFromYoutube ? ytFallback : undefined} onload={work.coverFromYoutube ? ytHandler : undefined} />
+          ) : (
+            <span class="card-placeholder"><img src={withBase('favicon.svg')} alt="" /></span>
+          )}
+        </div>
+        <CoverTags work={work} large />
+      </div>
+
+      <div class="work-info">
+        <div class="work-titles">
+          {LANGS.map((l) => (
+            <div class="i18n" data-l={l.key} lang={l.locale}>
+              <h1 class="work-title">{work.titles[l.key]}</h1>
+              {d.subtitle && <p class="work-sub">{d.subtitle}</p>}
+              {!same(work.titles[l.key], d.title) && <p class="work-orig" lang="">{d.title}</p>}
+            </div>
+          ))}
+        </div>
+
+        <dl class="meta">
+          {work.release && (<div><dt><T k="meta.release" /></dt><dd>{formatDate(work.release)}</dd></div>)}
+          {work.created && !work.release && (<div><dt><T k="meta.created" /></dt><dd>{formatDate(work.created)}</dd></div>)}
+          {work.genres.length > 0 && (<div><dt><T k="meta.genre" /></dt><dd>{work.genres.join(' · ')}</dd></div>)}
+          {projects.length > 0 && (<div><dt><T k="meta.projects" /></dt><dd>{projects.map((p) => p.name).join(' / ')}</dd></div>)}
+          {d.roles.length > 0 && (
+            <div class="meta-roles">
+              <dt><T k="meta.roles" /></dt>
+              <dd>
+                <ul class="roles">
+                  {sortRoles(d.roles).map((r) => <li><T v={roleDict(r)} /></li>)}
+                </ul>
+              </dd>
+            </div>
+          )}
+        </dl>
+
+        <div class="work-actions">
+          {d.streaming_url && (
+            <a class="btn btn--primary" href={d.streaming_url} target="_blank" rel="noopener">
+              <svg viewBox="0 0 10 12" aria-hidden="true"><polygon points="0,0 10,6 0,12" /></svg>
+              Streaming
+            </a>
+          )}
+          {d.community_url && (
+            <a class="btn btn--primary" href={d.community_url} target="_blank" rel="noopener">
+              <svg viewBox="0 0 12 12" aria-hidden="true"><polygon points="5,0 7,0 7,6 10,6 6,10 2,6 5,6" /><rect x="1" y="11" width="10" height="1" /></svg>
+              Download
+            </a>
+          )}
+          {d.youtube_link && (
+            <a class="btn btn--line" href={d.youtube_link} target="_blank" rel="noopener">
+              <T k="detail.watch" />
+            </a>
+          )}
+          {d.github_url && (
+            <a class="btn btn--line" href={d.github_url} target="_blank" rel="noopener">
+              <T k="detail.github" />
+            </a>
+          )}
+          {d.sheet_url && (
+            <a class="btn btn--line" href={d.sheet_url} target="_blank" rel="noopener">
+              <svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0h7l3 3v9H0z" /></svg>
+              <T k="detail.sheet" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <a class="back" href={backHref}>
+      <svg viewBox="0 0 6 10" aria-hidden="true"><polygon points="6,0 0,5 6,10" /></svg>
+      <T k="detail.back" />
+    </a>
+  </article>
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import FilterBar from '../components/FilterBar.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import { getWorksByTab } from '../lib/works';
+
+const works = await getWorksByTab('music');
+---
+<BaseLayout title="Music & Audio" active="music">
+  <PageHead title="Music & Audio" count={works.length} sort>
+    <FilterBar tab="music" />
+  </PageHead>
+  <section class="wrap section section--grid">
+    <WorkGrid works={works} tab="music" showGenres />
+  </section>
+</BaseLayout>

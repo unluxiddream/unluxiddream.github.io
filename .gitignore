@@ -1,0 +1,36 @@
+# ─────────────────────────────────────────────────────────────
+#  GitHub Pages(무료)는 공개 저장소이므로, 여기 없는 파일은 모두 공개됩니다.
+# ─────────────────────────────────────────────────────────────
+
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs / env
+*.log
+npm-debug.log*
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Obsidian — 개인 설정은 제외하고, 첨부파일 위치 설정(app.json)만 공유
+Official_UnluD/.obsidian/*
+!Official_UnluD/.obsidian/app.json
+Official_UnluD/.trash/
+
+# 공개하지 않을 원고·초안·템플릿
+Official_UnluD/_Templates/
+Official_UnluD/_Drafts/
+Official_UnluD/Works/**/_*.md

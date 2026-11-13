@@ -1,0 +1,20 @@
+---
+/**
+ * 다국어 텍스트. 네 언어를 모두 출력하고 CSS(html[data-lang])로 현재 언어만 보여줍니다.
+ *  <T k="sort.newest" />                       — 사전 키
+ *  <T v={{ ko: '가', en: 'A', jp: 'あ', cn: '甲' }} /> — 직접 값
+ *  as="div" 로 블록 요소 출력 가능
+ */
+import { LANGS } from '../config/site';
+import { UI, type UIKey, type Dict } from '../lib/i18n';
+
+interface Props {
+  k?: UIKey;
+  v?: Partial<Dict>;
+  as?: 'span' | 'div' | 'p';
+}
+const { k, v, as: Tag = 'span' } = Astro.props;
+const dict: Partial<Dict> = k ? UI[k] : (v ?? {});
+const fallback = dict.ko ?? Object.values(dict)[0] ?? '';
+---
+{LANGS.map((l) => <Tag class="i18n" data-l={l.key} lang={l.locale}>{dict[l.key] ?? fallback}</Tag>)}

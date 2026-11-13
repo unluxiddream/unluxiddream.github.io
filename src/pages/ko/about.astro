@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import AboutView from '../../components/AboutView.astro';
+import type { AboutData } from '../../lib/about';
+
+/* ───────── 이 아래 data 객체만 수정하면 About 페이지 내용이 바뀝니다 ───────── */
+const data: AboutData = {
+  intro: [
+    '초등학교 입학과 동시에 클래식 피아노를 배우기 시작했고, 중학교 입학 후 팝 피아노로 장르를 변경하며 독학으로 작곡을 시작했다.',
+    '공과대학에 진학했지만 음악을 포기할 수 없었고, 복수 전공으로 클래식 작곡을 선택해 지금에 이르렀다.',
+    '지금까지 배운 모든 음악을 연결하고 결합하여, 특정한 장르나 형식으로 정의할 수 없는 ‘자신만의 음악’을 추구하고 있다.',
+  ],
+  labels: {
+    fields: '활동 분야', education: '학력', discography: '음반', projects: '프로젝트',
+    activities: '기타 활동', portfolio: '대표 포트폴리오', contact: '연락처',
+    viewWork: '작업물 보기', viewTab: '목록 보기',
+  },
+  fields: [
+    { label: '보컬', to: 'music/?filter=vocal' },
+    { label: '작곡', to: 'music/?filter=compose' },
+    { label: '편곡', to: 'music/?filter=arrange' },
+    { label: '작사', to: 'music/?filter=lyrics' },
+    { label: '디자인', to: 'visual/?filter=design' },
+    { label: '일러스트', to: 'visual/?filter=illust' },
+    { label: '영상', to: 'visual/?filter=video' },
+    { label: '일본어 번역', to: 'other/?filter=translate' },
+  ],
+  education: ['상명대학교 인문사회과학대학 한일문화콘텐츠전공, 문화예술대학 음악학부 뉴미디어작곡전공 재학 (2023~)'],
+  discography: [
+    { year: '2026', title: '뮤지컬 「독왕전기」 중 일생희 I (Original Musical Soundtrack)', format: 'Single', workId: 'ilsaenghui1' },
+    { year: '2026', title: '有(유우)', format: 'Single', workId: 'yuuwaeru' },
+    { year: '2026', title: '오케스트라를 위한 신화(神化)', format: 'Single', workId: 'shinhwafororchestra' },
+    { year: '2026', title: '소프라노 리코더와 피아노를 위한 일광(日光)', format: 'Single', workId: 'formysunlight' },
+    { year: '2025', title: 'この花は死なせました', format: 'Single', note: '작곡 · 작사 · 보컬 참여', workId: 'konohanahashinasemashita' },
+    { year: '2025', title: '꿈에서라도 다시 만날 수 있다면', format: 'Single', workId: 'ifmetagainindream' },
+    { year: '2024', title: 'Suite for Piano Solo', format: 'EP', workId: 'suiteforpianosolo' },
+    { year: '2024', title: '시기, 운, 운명', format: 'Single', workId: 'timing-luck-fate' },
+    { year: '2023', title: '천 년의 숲', format: 'Single', workId: '1000forest' },
+  ],
+  projects: [{ year: '2026~', title: 'Project・LuDiA' }],
+  activities: [
+    { year: '2026~', title: 'UnTuned Live Challenge', url: 'https://www.youtube.com/playlist?list=PL8mkiqUJ8o-eom0PIFUjN8bscw4l5crky' },
+    { year: '2026~', title: '보컬로이드×프로듀서 유닛 LeXidN', url: 'https://www.youtube.com/playlist?list=PLNbkmfiKfi0M' },
+  ],
+  portfolio: [
+    {
+      genre: '오케스트라 작곡',
+      title: 'UnluXidDream 5th Single 「오케스트라를 위한 신화(神化)」',
+      workId: 'shinhwafororchestra',
+    },
+    {
+      genre: '뮤지컬 넘버 작곡, 보컬',
+      title: '【Official】 뮤지컬 「독왕전기」 중 일생희 I 【프로젝트・루디아】',
+      workId: 'ilsaenghui1',
+    },
+    {
+      genre: '클래시컬 EDM 작곡, 연주',
+      title: '【Official】 UnluXidDream 「有(유우)」 【프로젝트・루디아】',
+      workId: 'yuuwaeru',
+    },
+    {
+      genre: 'J-POP 보컬',
+      title: 'I\'MKL 1st Single 「この花は死なせました」',
+      workId: 'konohanahashinasemashita',
+    },
+    { genre: '앨범 커버 아트 디자인', to: 'visual/?filter=albumart' },
+    { genre: '캘리그라피', to: 'visual/?filter=calli' },
+  ],
+};
+/* ───────────────────────────────────────────────────────────────────── */
+---
+<BaseLayout title="About" active="about" pageLang="ko">
+  <PageHead title="About" />
+  <AboutView lang="ko" data={data} />
+</BaseLayout>
