@@ -7,7 +7,7 @@
 export const SITE = {
   name: 'UnluXidDream',
   alias: 'UnluD | 루드 | ルード',
-  email: 'hideakirakira@gmail.com',
+  email: 'unluxiddream@naver.com',
 };
 
 /**
@@ -67,6 +67,7 @@ export const DISCIPLINES: { key: string; match: string[]; to: string; main?: boo
   { key: 'artwork', match: ['일러스트', '디자인', '아트워크', '앨범 아트워크', '캘리그라피', '타이포그래피'], to: 'visual/?filter=illust,design,albumart,calli' },
   { key: 'video', match: ['영상'], to: 'visual/?filter=video' },
   { key: 'publish', match: ['사보', '악보', '악보 제작', '매거진', '판본', '판본 제작', '편집'], to: 'other/?filter=score,publish' },
+  { key: 'dev', match: ['개발'], to: 'other/?filter=dev' },
 ];
 
 /**
@@ -120,6 +121,7 @@ export const FILTERS: Record<'music' | 'visual' | 'other', { key: string; label:
     { key: 'score', label: { ko: '사보', en: 'Score', jp: '浄書', cn: '打谱' }, match: ['사보', '악보', '악보 제작'] },
     { key: 'publish', label: { ko: '판본', en: 'Publication', jp: '版下', cn: '出版' }, match: ['판본', '판본 제작', '매거진', '편집'] },
     { key: 'translate', label: { ko: '번역', en: 'Translation', jp: '翻訳', cn: '翻译' }, match: ['번역', '한국어 번역', '일본어 번역', '가사 번역'] },
+    { key: 'dev', label: { ko: '개발', en: 'Development', jp: '開発', cn: '开发' }, match: ['개발'] },
     { key: 'etc', label: { ko: '그 외', en: 'Others', jp: 'その他', cn: '其他' }, match: [] },
   ],
 };
@@ -171,3 +173,14 @@ export const LINKS: Record<'business' | 'follow' | 'support' | 'listen' | 'sheet
     { label: 'Ameba Blog', url: 'https://ameblo.jp/unluxiddream', desc: { ko: '일본어 음악 소식', en: 'Music news (Japanese)', jp: '音楽のお知らせ（日本語）', cn: '音乐资讯（日语）' } },
   ],
 };
+
+/**
+ * 하단 바(좌측 최하단) 아이콘 링크. 순서대로 표시됩니다.
+ * icon 값은 src/components/SocialIcons.astro 에 그려 둔 아이콘 이름입니다.
+ */
+export const FOOTER_LINKS: { label: string; url: string; icon: 'youtube' | 'instagram' | 'x' | 'naverblog' }[] = [
+  { label: 'YouTube', url: 'https://www.youtube.com/@unluxiddream', icon: 'youtube' },
+  { label: 'Instagram', url: 'https://www.instagram.com/unluxiddream/', icon: 'instagram' },
+  { label: 'X', url: 'https://x.com/unluxiddream', icon: 'x' },
+  { label: 'Naver Blog', url: 'https://blog.naver.com/unluxiddream', icon: 'naverblog' },
+];

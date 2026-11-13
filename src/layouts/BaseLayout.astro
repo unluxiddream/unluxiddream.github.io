@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import T from '../components/T.astro';
+import SocialIcons from '../components/SocialIcons.astro';
 import { SITE, type LangKey } from '../config/site';
 import { withBase } from '../lib/url';
 
@@ -80,12 +81,15 @@ const canonical = new URL(Astro.url.pathname, site).href;
     </main>
     <footer class="footer">
       <div class="wrap footer-inner">
-        <div class="footer-brand">
-          <img class="footer-mark" src={withBase('favicon.svg')} alt="" width="38" height="38" />
-          <div>
-            <p class="footer-name">{SITE.name}</p>
-            <p class="footer-alias">{SITE.alias}</p>
+        <div class="footer-left">
+          <div class="footer-brand">
+            <img class="footer-mark" src={withBase('favicon.svg')} alt="" width="38" height="38" />
+            <div>
+              <p class="footer-name">{SITE.name}</p>
+              <p class="footer-alias">{SITE.alias}</p>
+            </div>
           </div>
+          <SocialIcons />
         </div>
         <div class="footer-meta">
           <a href={`mailto:${SITE.email}`}>{SITE.email}</a>

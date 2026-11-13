@@ -1,8 +1,12 @@
 /**
  * Obsidian 임베드 문법 `![[파일명.png]]`, `![[파일명.png|300]]` 을
  * 일반 이미지 노드(`/images/파일명.png`)로 바꿔 주는 아주 작은 remark 플러그인.
- * 이미지 파일 자체는 반드시 `public/images/` 에 넣어 두어야 합니다.
+ * 이미지 파일은 Obsidian 볼트의 Attachments 폴더에 두면 됩니다 (빌드 때 /images/ 로 복사).
+ *
+ * 또, 일반 마크다운 이미지 `![](public/파일.png)` 처럼 public 폴더 기준으로 적은 경로는
+ * 사이트 주소(`/파일.png`)로 바꿔 줍니다. (README 내용을 그대로 붙여 넣어도 깨지지 않도록)
  */
+const PUBLIC_PATH = /^(?:\.\/)?public\//;
 const EMBED = /!\[\[([^\]|]+?)(?:\|([^\]]*))?\]\]/g;
 const IMAGE_EXT = /\.(png|jpe?g|gif|webp|avif|svg)$/i;
 
@@ -10,6 +14,7 @@ export default function remarkObsidianEmbed(options = {}) {
   const base = (options.base ?? '/').replace(/\/?$/, '/');
 
   const transform = (node) => {
+    if (node.type === 'image' && PUBLIC_PATH.test(node.url)) node.url = base + node.url.replace(PUBLIC_PATH, '');
     if (!node.children) return;
     const next = [];
     for (const child of node.children) {

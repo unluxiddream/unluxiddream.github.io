@@ -14,19 +14,19 @@ export const UI = {
   'sort.za': { ko: '가나다 역순', en: 'Title Z–A', jp: '名前の逆順', cn: '名称降序' },
 
   'list.empty': {
-    ko: '아직 등록된 작업물이 없습니다.',
-    en: 'No works here yet.',
-    jp: 'まだ作品がありません。',
-    cn: '暂无作品。',
+    ko: '준비 중',
+    en: 'Coming soon',
+    jp: '準備中',
+    cn: '敬请期待',
   },
 
   'filter.all': { ko: '전체', en: 'All', jp: 'すべて', cn: '全部' },
   'filter.label': { ko: '참여 분야', en: 'Filter by role', jp: '担当で絞り込み', cn: '按担任筛选' },
   'filter.empty': {
-    ko: '이 분야의 작업물은 아직 없습니다.',
-    en: 'No works in this category yet.',
-    jp: 'この分野の作品はまだありません。',
-    cn: '该分类暂无作品。',
+    ko: '준비 중',
+    en: 'Coming soon',
+    jp: '準備中',
+    cn: '敬请期待',
   },
 
   'meta.release': { ko: '공개일', en: 'Released', jp: '公開日', cn: '发布日期' },
@@ -60,6 +60,7 @@ export const UI = {
   'disc.artwork': { ko: '아트워크', en: 'Artwork', jp: 'アートワーク', cn: '美术' },
   'disc.video': { ko: '영상', en: 'Video', jp: '映像', cn: '视频' },
   'disc.publish': { ko: '판본 제작', en: 'Publication', jp: '版下制作', cn: '出版制作' },
+  'disc.dev': { ko: '개발', en: 'Development', jp: '開発', cn: '开发' },
   // Home 「II. Works」 칸의 소제목 (없는 항목은 소제목 없이 표시됨)
   'disc.compose.sub': { ko: '클래식, 대중음악, 뮤지컬 등', en: 'Classical, Pop, Musical & more', jp: 'クラシック、ポップス、ミュージカルなど', cn: '古典、流行音乐、音乐剧等' },
   'disc.vocal.sub': { ko: '대중음악(한국어/일본어/영어), 뮤지컬, 동인음악 등', en: 'Pop (Korean / Japanese / English), Musical, Doujin music & more', jp: 'ポップス（韓国語／日本語／英語）、ミュージカル、同人音楽など', cn: '流行音乐（韩语／日语／英语）、音乐剧、同人音乐等' },
@@ -68,6 +69,7 @@ export const UI = {
   'disc.artwork.sub': { ko: '캐릭터 일러스트, 앨범 아트워크, 캘리그라피, 타이포그래피, 총괄 디자인 등', en: 'Character illustration, Album artwork, Calligraphy, Typography, Art direction & more', jp: 'キャラクターイラスト、アルバムアートワーク、カリグラフィー、タイポグラフィ、総合デザインなど', cn: '角色插画、专辑美术、书法、字体设计、整体设计等' },
   'disc.video.sub': { ko: '뮤직 비디오, 리릭 비디오 등', en: 'Music videos, Lyric videos & more', jp: 'ミュージックビデオ、リリックビデオなど', cn: '音乐视频、歌词视频等' },
   'disc.publish.sub': { ko: '사보, 매거진 등', en: 'Score engraving, Magazines & more', jp: '浄書、マガジンなど', cn: '打谱、杂志等' },
+  'disc.dev.sub': { ko: 'Obsidian, Web', en: 'Obsidian, Web', jp: 'Obsidian, Web', cn: 'Obsidian, Web' },
 
   'contact.lead': {
     ko: '작곡 · 편곡 · 보컬 · 아트워크 · 영상 등 작업 의뢰와 협업 제안은 아래 메일로 연락 주세요.',

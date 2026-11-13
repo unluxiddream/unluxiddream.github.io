@@ -1,0 +1,24 @@
+---
+/** 하단 바 SNS 아이콘 줄. 링크 목록은 src/config/site.ts 의 FOOTER_LINKS */
+import { FOOTER_LINKS } from '../config/site';
+---
+<ul class="social">
+  {FOOTER_LINKS.map((l) => (
+    <li>
+      <a href={l.url} target="_blank" rel="noopener noreferrer" aria-label={l.label} title={l.label}>
+        {l.icon === 'youtube' && (
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z" /></svg>
+        )}
+        {l.icon === 'instagram' && (
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" /><circle cx="12" cy="12" r="4.4" /><circle cx="17.6" cy="6.4" r="1.25" fill="currentColor" stroke="none" /></svg>
+        )}
+        {l.icon === 'x' && (
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" /></svg>
+        )}
+        {l.icon === 'naverblog' && (
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M3 2h18a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2h-6.2L12 22.4 9.2 19H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm5.2 4.2v8.6h1.9v-.6a3.3 3.3 0 1 0 0-5.2V6.2zm3.6 4.1a1.65 1.65 0 1 1 0 3.3 1.65 1.65 0 0 1 0-3.3z" /></svg>
+        )}
+      </a>
+    </li>
+  ))}
+</ul>
