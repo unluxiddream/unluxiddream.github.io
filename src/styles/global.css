@@ -721,14 +721,11 @@ html.drawer-open .drawer { transform: none; }
 
 /* ---------- 17. Disciplines ---------- */
 .disc {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
   border-top: 1px solid var(--line); border-left: 1px solid var(--line);
 }
-/* 9칸: 데스크톱 3×3 / 좁은 화면 2열 + 대표 칸(작곡) 가로 2칸 */
-@media (max-width: 1000px) {
-  .disc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .disc-item--main { grid-column: span 2; }
-}
+/* 10칸: 데스크톱 5×2 / 좁은 화면 2×5 */
+@media (max-width: 1000px) { .disc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .disc-item { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .disc-item a {
   position: relative; display: flex; flex-direction: column; gap: 6px; height: 100%;
