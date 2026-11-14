@@ -21,7 +21,13 @@ const search = searchable
   ? {
       'data-s-title': [...new Set([d.title, d.subtitle ?? '', ...Object.values(work.titles)])].join('\n'),
       'data-s-genre': work.genres.join('\n'),
-      'data-s-role': [...new Set(d.roles.flatMap((r) => [r, ...Object.values(roleDict(r))]))].join('\n'),
+      'data-s-role': [
+        ...new Set([
+          ...d.roles.flatMap((r) => [r, ...Object.values(roleDict(r))]),
+          // 보컬 톤 · 발성도 「역할」 검색 대상 (예: 하이톤, falsetto, 裏声)
+          ...[...work.vocalTones, ...work.vocalVoices].flatMap((a) => [...a.match, ...Object.values(a.label)]),
+        ]),
+      ].join('\n'),
       'data-s-etc': [...d.projects, ...d.categories, d.work_type ?? ''].join('\n'),
     }
   : {};
@@ -36,6 +42,8 @@ const ytHandler = `if(this.dataset.fb&&(this.naturalWidth<=120)){this.src=this.d
   data-card
   data-key={work.sortKey}
   data-filters={tab ? filterKeysFor(work, tab).join(' ') : undefined}
+  data-tone={tab === 'music' && work.vocalTones.length ? work.vocalTones.map((t) => t.key).join(' ') : undefined}
+  data-voice={tab === 'music' && work.vocalVoices.length ? work.vocalVoices.map((v) => v.key).join(' ') : undefined}
   {...Object.fromEntries(LANGS.map((l) => [`data-t-${l.key}`, work.titles[l.key]]))}
   {...search}
 >

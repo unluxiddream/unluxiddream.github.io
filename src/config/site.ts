@@ -1,7 +1,5 @@
 /**
- * ─────────────────────────────────────────────────────────────
  *  사이트 전역 설정 — 이 파일만 고쳐도 대부분의 정보가 바뀝니다.
- * ─────────────────────────────────────────────────────────────
  */
 
 export const SITE = {
@@ -185,4 +183,24 @@ export const FOOTER_LINKS: { label: string; url: string; icon: 'youtube' | 'inst
   { label: 'Instagram', url: 'https://www.instagram.com/unluxiddream/', icon: 'instagram' },
   { label: 'X', url: 'https://x.com/unluxiddream', icon: 'x' },
   { label: 'Naver Blog', url: 'https://blog.naver.com/unluxiddream', icon: 'naverblog' },
+];
+
+/**
+ * 보컬 톤 · 발성. 작품 md 의 vocal_tone / vocal_voice 값.
+ *  - 카드에는 표시되지 않고, 작업물 상세 페이지 「참여」 아래와 Music & Audio 「보컬」 필터의 보조 필터에서만 쓰입니다.
+ *  - match: md 에 적을 수 있는 값 (대소문자 무시). 첫 번째 값이 기본 표기입니다.
+ *  - label: 화면에 보이는 이름
+ */
+export interface VocalAttr { key: string; label: Dict; match: string[] }
+
+export const VOCAL_TONES: VocalAttr[] = [
+  { key: 'low', label: { ko: 'Low', en: 'Low', jp: 'Low', cn: 'Low' }, match: ['Low', '로우', '로우톤'] },
+  { key: 'mid', label: { ko: 'Mid (Default)', en: 'Mid (Default)', jp: 'Mid (Default)', cn: 'Mid (Default)' }, match: ['Mid', 'Default', '미드', '디폴트', '디폴트톤'] },
+  { key: 'high', label: { ko: 'High', en: 'High', jp: 'High', cn: 'High' }, match: ['High', '하이', '하이톤'] },
+];
+
+export const VOCAL_VOICES: VocalAttr[] = [
+  { key: 'chest', label: { ko: '진성', en: 'Chest', jp: '地声', cn: '真声' }, match: ['Chest', '진성'] },
+  { key: 'head', label: { ko: '두성', en: 'Head', jp: 'ヘッドボイス', cn: '头声' }, match: ['Head', '두성', '헤드보이스'] },
+  { key: 'falsetto', label: { ko: '가성', en: 'Falsetto', jp: '裏声', cn: '假声' }, match: ['Falsetto', '가성'] },
 ];

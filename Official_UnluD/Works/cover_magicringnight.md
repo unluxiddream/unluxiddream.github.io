@@ -22,11 +22,30 @@ streaming_url:
 sheet_url:
 cover:
 genres: Royal Scandal
+vocal_tone:
+  - High
+  - Low
+vocal_voice:
+  - Chest
 ---
 
+## LIBERAYtion (Huey × Hesti Duet ver.)
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ctijyytcU4Q?si=4cqew8Z8yuUgMwkx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 # 「そして僕は、ひとり恋をした。」
+
+## Huey Solo ver.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2qtG7-6skaI?si=1HIEycqLSXQCbQy6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+# 「こんな僕じゃあダメだな。」
+#Chest #Low
+
+## # Hesti Solo ver.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CBM41U5EaaU?si=ILoWZqO_T1kNGvII" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+# 「でも君のためなら何だっていいさ。」
+#Chest #High
+
 
 ---
 

@@ -24,6 +24,10 @@ youtube_link: https://www.youtube.com/watch?v=rgEKj3WRU-Q
 streaming_url: https://push.fm/fl/konohanahashinasemashita
 cover: https://youtu.be/giOivcIHbGA?si=apG8mFNeQeFETpSU
 genres: J-POP
+vocal_tone:
+  - Mid
+vocal_voice:
+  - Chest
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rgEKj3WRU-Q?si=j6tYCRqs0yoMTZ8D" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

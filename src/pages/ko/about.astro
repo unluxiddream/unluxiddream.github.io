@@ -4,7 +4,7 @@ import PageHead from '../../components/PageHead.astro';
 import AboutView from '../../components/AboutView.astro';
 import type { AboutData } from '../../lib/about';
 
-/* ───────── 이 아래 data 객체만 수정하면 About 페이지 내용이 바뀝니다 ───────── */
+/* 이 아래 data 객체만 수정하면 About 페이지 내용이 바뀝니다 */
 const data: AboutData = {
   intro: [
     '초등학교 입학과 동시에 클래식 피아노를 배우기 시작했고, 중학교 입학 후 팝 피아노로 장르를 변경하며 독학으로 작곡을 시작했다.',
@@ -40,7 +40,7 @@ const data: AboutData = {
   ],
   projects: [{ year: '2026~', title: 'Project・LuDiA' }],
   activities: [
-    { year: '2026~', title: 'UnTuned Live Challenge', url: 'https://www.youtube.com/playlist?list=PL8mkiqUJ8o-eom0PIFUjN8bscw4l5crky' },
+    { year: '2026~', title: 'UnTuned Live Challenge', workId: 'cover_untunedlivechallange' },
     { year: '2026~', title: '보컬로이드×프로듀서 유닛 LeXidN', url: 'https://www.youtube.com/playlist?list=PLNbkmfiKfi0M' },
   ],
   portfolio: [
@@ -68,7 +68,6 @@ const data: AboutData = {
     { genre: '캘리그라피', to: 'visual/?filter=calli' },
   ],
 };
-/* ───────────────────────────────────────────────────────────────────── */
 ---
 <BaseLayout title="About" active="about" pageLang="ko">
   <PageHead title="About" />

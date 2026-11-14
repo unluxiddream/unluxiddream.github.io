@@ -27,8 +27,6 @@ jobs:
         uses: actions/checkout@v7
       - name: Install, build, and upload site
         uses: withastro/action@v6
-        # with:
-        #   node-version: 24   # 기본값 24 (Astro 7은 Node 22.23 이상 필요)
 
   deploy:
     needs: build

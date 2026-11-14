@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import T from '../../components/T.astro';
 import CoverTags from '../../components/CoverTags.astro';
 import { LANGS, PROJECTS } from '../../config/site';
-import { getWorks, sortRoles, type Work } from '../../lib/works';
+import { getWorks, roleFilterPath, sortRoles, type Work } from '../../lib/works';
 import { formatDate } from '../../lib/date';
 import { roleDict } from '../../lib/i18n';
 import { withBase } from '../../lib/url';
@@ -69,8 +69,33 @@ const ytHandler = `if(this.dataset.fb&&(this.naturalWidth<=120)){this.src=this.d
             <div class="meta-roles">
               <dt><T k="meta.roles" /></dt>
               <dd>
-                <ul class="roles">
-                  {sortRoles(d.roles).map((r) => <li><T v={roleDict(r)} /></li>)}
+                {/* 필터 버튼이 있는 역할은 누르면 그 필터 목록으로 이동, 없는 역할(기획 등)은 글자만 */}
+                <ul class="roles roles--link">
+                  {sortRoles(d.roles).map((r) => {
+                    const path = roleFilterPath(r);
+                    return <li class:list={{ 'is-plain': !path }}>{path ? <a href={withBase(path)}><T v={roleDict(r)} /></a> : <span><T v={roleDict(r)} /></span>}</li>;
+                  })}
+                </ul>
+              </dd>
+            </div>
+          )}
+          {/* 보컬 톤 · 발성: 태그를 누르면 Music & Audio 「보컬」 필터 + 해당 보조 필터가 켜진 목록으로 이동 */}
+          {work.vocalTones.length > 0 && (
+            <div class="meta-roles">
+              <dt><T k="meta.vocalTone" /></dt>
+              <dd>
+                <ul class="roles roles--link">
+                  {work.vocalTones.map((t) => <li><a href={withBase(`music/?filter=vocal&tone=${t.key}`)}><T v={t.label} /></a></li>)}
+                </ul>
+              </dd>
+            </div>
+          )}
+          {work.vocalVoices.length > 0 && (
+            <div class="meta-roles">
+              <dt><T k="meta.vocalVoice" /></dt>
+              <dd>
+                <ul class="roles roles--link">
+                  {work.vocalVoices.map((v) => <li><a href={withBase(`music/?filter=vocal&voice=${v.key}`)}><T v={v.label} /></a></li>)}
                 </ul>
               </dd>
             </div>

@@ -26,6 +26,10 @@ streaming_url:
 sheet_url:
 cover:
 genres: "HATSUNE MIKU: COLORFUL STAGE!"
+vocal_tone:
+  - High
+vocal_voice:
+  - Falsetto
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UVCAqPUnPRU?si=CuW4jjtSyghlNSiF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

@@ -82,7 +82,7 @@ const NAV = [
     set(k: string, v: string) { try { localStorage.setItem(k, v); } catch { /* storage blocked */ } },
   };
 
-  // ── 언어 ───────────────────────────────────────────
+  // 언어
   function syncLangUI(lang: Lang) {
     document.querySelectorAll<HTMLAnchorElement>('[data-about-link]').forEach((a) => (a.href = `${BASE}/${lang}/about/`));
     document.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((b) =>
@@ -131,7 +131,7 @@ const NAV = [
   });
   document.addEventListener('click', closeMenus);
 
-  // ── 검색창 placeholder 언어 반영 ─────────────────────
+  // 검색창 placeholder 언어 반영
   function syncPlaceholders(lang: string) {
     document.querySelectorAll<HTMLInputElement>('.search-input').forEach((i) => {
       const v = i.getAttribute(`data-ph-${lang}`);
@@ -141,7 +141,7 @@ const NAV = [
   syncPlaceholders(root.dataset.lang || 'ko');
   document.addEventListener('langchange', (e) => syncPlaceholders((e as CustomEvent).detail));
 
-  // ── 상단 검색 패널 ──────────────────────────────────
+  // 상단 검색 패널
   const sbox = document.querySelector<HTMLElement>('[data-searchbox]');
   if (sbox) {
     const sbtn = sbox.querySelector<HTMLButtonElement>('.search-toggle')!;
@@ -163,7 +163,7 @@ const NAV = [
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setSearch(false); });
   }
 
-  // ── 테마 ───────────────────────────────────────────
+  // 테마
   document.querySelectorAll('[data-theme-toggle]').forEach((b) =>
     b.addEventListener('click', () => {
       const next = root.dataset.theme === 'light' ? 'dark' : 'light';
@@ -172,7 +172,7 @@ const NAV = [
     }),
   );
 
-  // ── 스크롤 시 상단 바 숨김 + 북마크 ───────────────────
+  // 스크롤 시 상단 바 숨김 + 북마크
   const bar = document.querySelector<HTMLElement>('[data-topbar]')!;
   let ticking = false;
   function onScroll() {
@@ -184,7 +184,7 @@ const NAV = [
   }, { passive: true });
   onScroll();
 
-  // ── 드로어 ─────────────────────────────────────────
+  // 드로어
   const drawer = document.querySelector<HTMLElement>('[data-drawer]')!;
   const scrim = document.querySelector<HTMLElement>('[data-drawer-scrim]')!;
   const opener = document.querySelector<HTMLButtonElement>('[data-drawer-open]')!;

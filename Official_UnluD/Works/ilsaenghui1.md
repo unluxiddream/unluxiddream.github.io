@@ -31,6 +31,10 @@ youtube_link: https://youtu.be/5816hdjD-yI?si=NNJngkO4iNlVNN_k
 streaming_url: https://push.fm/fl/ilsaenghui1
 cover: https://youtu.be/Y4_CVXrNIbo?si=WitCf7zAHTZqxlEk
 genres: Musical Soundtrack
+vocal_tone:
+  - Mid
+vocal_voice:
+  - Chest
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5816hdjD-yI?si=BYkUu422PH1P-Qcu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

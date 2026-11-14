@@ -25,6 +25,13 @@ streaming_url:
 sheet_url:
 cover:
 genres: VOCALOID
+vocal_tone:
+  - High
+  - Mid
+vocal_voice:
+  - Chest
+  - Falsetto
+  - Head
 ---
 
 ## 2022.05.25 ver (FULL)
@@ -36,6 +43,7 @@ genres: VOCALOID
 
 作曲/作詞：doriko
 編曲/歌/イラスト : UnluXidDream
+#Falsetto #High
 
 ## 2026.09.26 ver (SHORTS)
 <iframe class="shorts" src="https://www.youtube.com/embed/KP1v5x3lxAI?si=ojB5w2N7CdJgnEjk" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -46,3 +54,4 @@ genres: VOCALOID
 
 ▼ Cover：luD(UnluXidDream)
 ▼ Original : doriko
+#Chest #Head #Mid

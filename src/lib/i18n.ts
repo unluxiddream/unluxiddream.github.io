@@ -32,6 +32,8 @@ export const UI = {
   'meta.release': { ko: '공개일', en: 'Released', jp: '公開日', cn: '发布日期' },
   'meta.created': { ko: '작업일', en: 'Created', jp: '制作日', cn: '创作日期' },
   'meta.roles': { ko: '참여', en: 'Roles', jp: '担当', cn: '担任' },
+  'meta.vocalTone': { ko: '보컬 톤', en: 'Vocal Tone', jp: 'ボーカルトーン', cn: '音色' },
+  'meta.vocalVoice': { ko: '발성', en: 'Voice', jp: '発声', cn: '发声' },
   'meta.genre': { ko: '장르', en: 'Genre', jp: 'ジャンル', cn: '类型' },
   'meta.projects': { ko: '프로젝트', en: 'Project', jp: 'プロジェクト', cn: '项目' },
   'meta.type': { ko: '유형', en: 'Type', jp: '種別', cn: '类型' },

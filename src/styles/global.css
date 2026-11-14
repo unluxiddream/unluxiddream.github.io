@@ -1,10 +1,10 @@
-/* =====================================================================
+/*
    UnluXidDream — global styles
    키워드: 날카로움 · 장미 · 붉은색(+금색) · 고급스러움
    규칙: 모서리 둥글림 금지. 직선/사각/삼각/북마크 형태만 사용.
-   ===================================================================== */
+*/
 
-/* ---------- 1. Tokens ---------- */
+/*  1. Tokens  */
 :root,
 :root[data-theme='dark'] {
   color-scheme: dark;
@@ -27,6 +27,8 @@
   --gold: #c9a45c;
   --gold-ink: #d8b878;
   --gold-soft: rgba(201, 164, 92, 0.28);
+  --hashtag-fg: #ffd23f;                  /* 본문 #태그: 다크(레드) 모드 → 노랑 */
+  --hashtag-bg: rgba(255, 210, 63, 0.12);
 
   --scrim: rgba(8, 5, 7, 0.62);
   --bar-bg: rgba(19, 16, 18, 0.86);
@@ -53,6 +55,8 @@
   --gold: #9c1a30;          /* 라이트 모드에서는 보조색이 레드 */
   --gold-ink: #9c1a30;
   --gold-soft: rgba(156, 26, 48, 0.22);
+  --hashtag-fg: #b0001e;                  /* 본문 #태그: 라이트(옐로) 모드 → 빨강 */
+  --hashtag-bg: rgba(176, 0, 30, 0.08);
 
   --scrim: rgba(40, 30, 20, 0.4);
   --bar-bg: rgba(255, 255, 255, 0.92);
@@ -86,7 +90,7 @@
   :root { --gutter: 32px; }
 }
 
-/* ---------- 2. Reset ---------- */
+/*  2. Reset  */
 *,
 *::before,
 *::after {
@@ -155,7 +159,7 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
 /* 원형이 꼭 필요한 경우에만 */
 .is-circle { border-radius: 50%; }
 
-/* ---------- 3. i18n ---------- */
+/*  3. i18n  */
 .i18n { display: none; }
 html[data-lang='ko'] .i18n[data-l='ko'],
 html[data-lang='en'] .i18n[data-l='en'],
@@ -166,7 +170,7 @@ html[data-lang='en'] :is(div, p).i18n[data-l='en'],
 html[data-lang='jp'] :is(div, p).i18n[data-l='jp'],
 html[data-lang='cn'] :is(div, p).i18n[data-l='cn'] { display: block; }
 
-/* ---------- 4. Layout ---------- */
+/*  4. Layout  */
 .wrap {
   width: 100%;
   max-width: var(--maxw);
@@ -177,7 +181,7 @@ main { min-height: 70vh; }
 .section { padding-block: 72px; }
 .section--grid { padding-top: 32px; }
 
-/* ---------- 6. Controls (공통 사각 버튼) ---------- */
+/*  5. Controls (공통 사각 버튼)  */
 .ctrl {
   display: inline-flex;
   align-items: center;
@@ -282,7 +286,7 @@ main { min-height: 70vh; }
 .search-form--page .search-submit { width: 56px; height: 52px; }
 .search-form--page .search-scope-label { height: 36px; line-height: 34px; padding: 0 16px; font-size: 13px; }
 
-/* ---------- 7. Top bar ---------- */
+/*  6. Top bar  */
 .topbar {
   position: fixed; inset: 0 0 auto 0; z-index: 40;
   height: var(--bar-h);
@@ -326,7 +330,7 @@ html.is-scrolled .topbar { transform: translateY(-101%); }
 .topnav-link.is-active::before { opacity: 1; }
 .topbar-ctrls { display: flex; align-items: center; gap: 8px; }
 
-/* ---------- 8. Bookmark tag ---------- */
+/*  7. Bookmark tag  */
 .bookmark {
   position: fixed; top: 0; right: var(--gutter); z-index: 45;
   width: 46px; height: 74px;
@@ -349,7 +353,7 @@ html.is-scrolled .bookmark { transform: translateY(0); }
 .bookmark-lines i:nth-child(2) { width: 70%; justify-self: end; }
 html.drawer-open .bookmark { transform: translateY(-100%); }
 
-/* ---------- 9. Drawer ---------- */
+/*  8. Drawer  */
 .drawer-scrim {
   position: fixed; inset: 0; z-index: 48; background: var(--scrim);
   opacity: 0; transition: opacity 0.35s;
@@ -393,7 +397,7 @@ html.drawer-open .drawer { transform: none; }
 .drawer-link.is-active .drawer-label { color: var(--accent-ink); }
 .drawer-ctrls { display: flex; gap: 8px; padding: 24px 24px 24px 32px; position: relative; z-index: 1; }
 
-/* ---------- 10. Buttons ---------- */
+/*  9. Buttons  */
 .btn {
   position: relative;
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -418,7 +422,7 @@ html.drawer-open .drawer { transform: none; }
 }
 .btn--stream:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 
-/* ---------- 11. Page head ---------- */
+/*  10. Page head  */
 .pagehead {
   padding-top: calc(var(--bar-h) + 64px);
   padding-bottom: 32px;
@@ -445,7 +449,7 @@ html.drawer-open .drawer { transform: none; }
 .pagehead-below { width: 100%; }
 .pagehead-count b { font-size: 22px; color: var(--text); letter-spacing: 0; margin-right: 2px; }
 
-/* ---------- 12. Sort dropdown ---------- */
+/*  11. Sort dropdown  */
 .sort { position: relative; display: flex; align-items: center; gap: 10px; }
 .sort-label { font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 .sort-btn {
@@ -477,7 +481,7 @@ html.drawer-open .drawer { transform: none; }
   border-left: 6px solid currentColor; border-top: 4px solid transparent; border-bottom: 4px solid transparent;
 }
 
-/* ---------- 12-b. Filter buttons ---------- */
+/*  12. Filter buttons  */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; }
 .filter {
   position: relative; height: 36px; padding: 0 16px;
@@ -495,7 +499,26 @@ html.drawer-open .drawer { transform: none; }
 }
 @media (max-width: 520px) { .filter { height: 34px; padding: 0 12px; font-size: 12px; } }
 
-/* ---------- 13. Grid & Card ---------- */
+/* 보조 필터 (Music & Audio 「보컬」 선택 시에만 표시): 보컬 톤 · 발성 */
+.subfilters {
+  display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 14px; padding: 12px 14px;
+  border: 1px solid var(--line); border-left: 2px solid var(--accent); background: var(--surface);
+}
+.subfilters[hidden] { display: none; }
+.subfilter-group { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.subfilter-label {
+  margin-right: 6px; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-ink);
+}
+.subfilter {
+  height: 28px; padding: 0 11px; border: 1px solid var(--line-strong); background: transparent;
+  color: var(--text-2); font-size: 12px; font-weight: 500; transition: border-color 0.2s, color 0.2s;
+}
+.subfilter:hover { border-color: var(--accent); color: var(--text); }
+.subfilter.is-active { border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+/* 라이트(옐로) 모드: 노랑은 회색 비선택과 구분이 약하므로 선택 표시는 빨강 */
+:root[data-theme='light'] .subfilter.is-active { border-color: var(--gold); color: var(--gold-ink); }
+
+/*  13. Grid & Card  */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -560,7 +583,7 @@ html.drawer-open .drawer { transform: none; }
   .card-orig, .card-sub { font-size: 12px; }
 }
 
-/* ---------- 14. Index tags ---------- */
+/*  14. Index tags  */
 /* .tagpin = 위치·접힘 담당 래퍼, .tag = 실제 라벨. 색은 --tbg / --tfg 변수로 지정 */
 .tagpin {
   /* --pop(튀어나오는 길이)은 부모 .tag-stack 에서 상속: 기본 7px, 상세 페이지(.tagpin--lg) 10px */
@@ -619,7 +642,7 @@ html.drawer-open .drawer { transform: none; }
   border: 1px dashed var(--line-strong);
 }
 
-/* ---------- 15. Section heads ---------- */
+/*  15. Section heads  */
 .section-head {
   display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap;
   margin-bottom: 36px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
@@ -635,7 +658,7 @@ html.drawer-open .drawer { transform: none; }
 .section-more:hover { color: var(--accent-ink); }
 .section-more:hover svg { transform: translateX(4px); }
 
-/* ---------- 16. Hero ---------- */
+/*  16. Hero  */
 .hero { position: relative; overflow: hidden; padding-top: var(--bar-h); border-bottom: 1px solid var(--line); }
 .hero-bg {
   position: absolute; inset: 0; pointer-events: none;
@@ -722,7 +745,7 @@ html.drawer-open .drawer { transform: none; }
   .hero-char { order: -1; align-self: auto; width: min(78%, 380px); margin-bottom: 0; }
 }
 
-/* ---------- 17. Disciplines ---------- */
+/*  17. Disciplines  */
 .disc {
   display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
   border-top: 1px solid var(--line); border-left: 1px solid var(--line);
@@ -758,7 +781,7 @@ html.drawer-open .drawer { transform: none; }
   .disc-main { right: 14px; }
 }
 
-/* ---------- 18. Contact band ---------- */
+/*  18. Contact band  */
 .band {
   position: relative; margin-top: 40px; overflow: hidden;
   background: var(--accent-deep); color: #fff;
@@ -787,7 +810,7 @@ html.drawer-open .drawer { transform: none; }
 .btn--onband { color: #fff; border-color: rgba(255, 255, 255, 0.45); }
 .btn--onband:hover { border-color: #fff; color: #fff; background: rgba(255, 255, 255, 0.08); }
 
-/* ---------- 19. Footer ---------- */
+/*  19. Footer  */
 .footer { border-top: 1px solid var(--line); background: var(--bg-2); }
 .footer-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; padding-block: 40px; }
 .footer-left { display: flex; flex-direction: column; gap: 20px; }
@@ -807,7 +830,7 @@ html.drawer-open .drawer { transform: none; }
 .social a:hover, .social a:focus-visible { color: var(--accent-ink); transform: translateY(-2px); }
 .social svg { width: 22px; height: 22px; display: block; }
 
-/* ---------- 20. Work detail ---------- */
+/*  20. Work detail  */
 .work { padding-top: calc(var(--bar-h) + 32px); padding-bottom: 96px; }
 .crumb a, .back {
   display: inline-flex; align-items: center; gap: 10px;
@@ -833,6 +856,12 @@ html.drawer-open .drawer { transform: none; }
 .meta dd { font-size: 15px; color: var(--text-2); }
 .roles { display: flex; flex-wrap: wrap; gap: 6px; }
 .roles li { padding: 2px 10px; border: 1px solid var(--line-strong); font-size: 13px; }
+/* 링크 태그 (보컬 톤 · 발성): 누르면 해당 필터 목록으로 이동 */
+.roles--link li { padding: 0; }
+/* 「> li >」 로 바깥 태그에만 적용 — 안쪽 언어별 .i18n span 까지 잡으면 4개 언어가 모두 보임 */
+.roles--link > li > a, .roles--link > li > span { display: block; padding: 2px 10px; transition: background-color 0.2s, color 0.2s; }
+.roles--link li:not(.is-plain):hover { border-color: var(--accent); }
+.roles--link a:hover { background: var(--accent); color: var(--on-accent); }
 .work-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .back { margin-top: 56px; }
 .work .back { display: flex; width: 100%; max-width: 720px; margin-inline: auto; } /* 본문 왼쪽 끝 선에 맞춤 */
@@ -840,6 +869,12 @@ html.drawer-open .drawer { transform: none; }
 /* 본문 (md) */
 .prose { max-width: 720px; margin: 56px auto 0; /* 네이버 블로그 본문 폭 정도, 중앙 정렬 */ color: var(--text-2); font-size: 16px; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
 .prose > * + * { margin-top: 1.1em; }
+/* Obsidian 본문 태그 #태그 (src/lib/remark-obsidian-tags.mjs) — 사각형 */
+.prose .hashtag {
+  display: inline-block; padding: 1px 8px; margin: 2px 0; border-radius: 0;
+  background: var(--hashtag-bg); color: var(--hashtag-fg);
+  font-size: 0.86em; font-style: normal; font-weight: 500; line-height: 1.6; word-break: keep-all;
+}
 .prose h1, .prose h2, .prose h3, .prose h4 { color: var(--text); font-weight: 800; line-height: 1.3; letter-spacing: -0.02em; margin-top: 2em; }
 .prose h2 { font-size: 26px; padding-left: 14px; border-left: 4px solid var(--accent); }
 .prose h3 { font-size: 20px; }
@@ -861,7 +896,7 @@ html.drawer-open .drawer { transform: none; }
 .prose table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .prose th, .prose td { padding: 8px 12px; border: 1px solid var(--line); text-align: left; }
 
-/* ---------- 21. About ---------- */
+/*  21. About  */
 .about {
   display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 64px;
   padding-top: 56px; padding-bottom: 96px;
@@ -958,7 +993,7 @@ a.pf-title:hover { color: var(--accent-ink); }
   margin-bottom: 12px; font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-ink);
 }
 
-/* ---------- 21-b. Link list (Contact / About) ---------- */
+/*  22. Link list (Contact / About)  */
 .links a {
   position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px;
   border: 1px solid var(--line); background: var(--surface);
@@ -978,7 +1013,7 @@ a.pf-title:hover { color: var(--accent-ink); }
 .links--grid .links-label { font-size: 14px; }
 @media (max-width: 420px) { .links--grid { grid-template-columns: 1fr 1fr; } }
 
-/* ---------- 22. Contact ---------- */
+/*  23. Contact  */
 .contact { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 64px; }
 @media (max-width: 860px) { .contact { grid-template-columns: 1fr; gap: 48px; } }
 .contact-lead { font-size: clamp(17px, 2vw, 20px); color: var(--text-2); max-width: 34em; word-break: keep-all; }
@@ -999,13 +1034,13 @@ a.pf-title:hover { color: var(--accent-ink); }
   border-left: 7px solid var(--accent); border-top: 4px solid transparent; border-bottom: 4px solid transparent;
 }
 
-/* ---------- 23. 404 ---------- */
+/*  24. 404  */
 .nf { padding-top: calc(var(--bar-h) + 96px); padding-bottom: 120px; display: grid; justify-items: start; gap: 16px; }
 .nf-mark { width: 72px; height: 72px; }
 .nf-code { font-size: clamp(72px, 14vw, 160px); font-weight: 900; line-height: 1; letter-spacing: -0.03em; color: var(--accent-ink); }
 .nf-msg { font-size: 20px; margin-bottom: 16px; }
 
-/* ---------- 24. Mobile nav ---------- */
+/*  25. Mobile nav  */
 @media (max-width: 1080px) {
   .topnav { display: none; }
   .topbar-ctrls { margin-left: auto; margin-right: 62px; } /* 북마크 자리 확보 */

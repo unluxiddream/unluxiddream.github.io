@@ -30,6 +30,10 @@ streaming_url:
 sheet_url:
 cover:
 genres: J-POP
+vocal_tone:
+  - Mid
+vocal_voice:
+  - Chest
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/0m-AePcNq9E?si=jYYsjX5-5DXsMwWd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

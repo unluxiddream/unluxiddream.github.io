@@ -100,9 +100,11 @@ const L = data.labels;
             <li>
               <span class="tl-year">{r.year}</span>
               <span class="tl-body">
-                {r.url
-                  ? <a class="tl-title tl-link" href={r.url} target="_blank" rel="noopener">{r.title}<Fragment set:html={ext} /></a>
-                  : <span class="tl-title">{r.title}</span>}
+                {workHref(r.workId)
+                  ? <a class="tl-title tl-link" href={workHref(r.workId)}>{r.title}</a>
+                  : r.url
+                    ? <a class="tl-title tl-link" href={r.url} target="_blank" rel="noopener">{r.title}<Fragment set:html={ext} /></a>
+                    : <span class="tl-title">{r.title}</span>}
               </span>
             </li>
           ))}

@@ -3,15 +3,14 @@ import { defineConfig } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
 import remarkBreaks from 'remark-breaks';
 import remarkObsidianEmbed from './src/lib/remark-obsidian-embed.mjs';
+import remarkObsidianTags from './src/lib/remark-obsidian-tags.mjs';
 import vaultAttachments from './src/integrations/vault-attachments.mjs';
 import sitemap from '@astrojs/sitemap';
 
-// ─────────────────────────────────────────────────────────────
 //  배포 설정
 //  SITE : 실제 배포 도메인. sitemap.xml · robots.txt · 링크 미리보기(og) 주소가 모두 여기서 만들어짐
 //         (가비아 도메인 · public/CNAME 과 같은 주소로 유지)
 //  BASE : 서브 경로에 배포할 때만 사용. 개인 도메인 연결 시에는 '/' 그대로
-// ─────────────────────────────────────────────────────────────
 const SITE = 'https://unluxiddream.com';
 const BASE = '/';
 
@@ -32,7 +31,8 @@ export default defineConfig({
     processor: unified({
       // remark-breaks : Obsidian처럼 한 줄 개행을 그대로 줄바꿈으로 렌더
       // remarkObsidianEmbed : ![[이미지.png]] 문법을 public/images/ 경로로 변환
-      remarkPlugins: [remarkBreaks, [remarkObsidianEmbed, { base: BASE }]],
+      // remarkObsidianTags  : 본문의 #태그 를 태그 모양으로 표시
+      remarkPlugins: [remarkBreaks, [remarkObsidianEmbed, { base: BASE }], remarkObsidianTags],
     }),
   },
 });

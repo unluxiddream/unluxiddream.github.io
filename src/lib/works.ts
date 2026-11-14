@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { FILTERS, LANGS, ROLE_ORDER, TAB_CATEGORIES, type LangKey } from '../config/site';
+import { FILTERS, LANGS, ROLE_ORDER, TAB_CATEGORIES, VOCAL_TONES, VOCAL_VOICES, type LangKey, type VocalAttr } from '../config/site';
 import { formatDate, parseCustomDate, type ParsedDate } from './date';
 import { withBase } from './url';
 
@@ -25,6 +25,10 @@ export interface Work {
   youtubeId: string | null;
   /** 장르 목록 (md에 한 줄 문자열로 적어도, 목록으로 적어도 항상 배열) */
   genres: string[];
+  /** 보컬 톤 key (VOCAL_TONES 순서) */
+  vocalTones: VocalAttr[];
+  /** 발성 key (VOCAL_VOICES 순서) */
+  vocalVoices: VocalAttr[];
   tabs: Tab[];
   href: string;
 }
@@ -129,6 +133,12 @@ function tabsOf(categories: string[], roles: string[] = []): Tab[] {
   return [...tabs];
 }
 
+/** md 의 vocal_tone / vocal_voice 값을 정의 목록(순서 유지)으로 변환. 목록에 없는 값은 무시 */
+function vocalAttrs(values: string[], defs: VocalAttr[]): VocalAttr[] {
+  const given = values.map((v) => v.trim().toLowerCase());
+  return defs.filter((def) => def.match.some((m) => given.includes(m.toLowerCase())));
+}
+
 export async function toWork(entry: WorkEntry): Promise<Work> {
   const d = entry.data;
   const titles = Object.fromEntries(
@@ -180,6 +190,8 @@ export async function toWork(entry: WorkEntry): Promise<Work> {
     coverFallback,
     youtubeId: yt,
     genres: toList((d as { genres?: unknown }).genres),
+    vocalTones: vocalAttrs(d.vocal_tone, VOCAL_TONES),
+    vocalVoices: vocalAttrs(d.vocal_voice, VOCAL_VOICES),
     tabs: tabsOf(d.categories, d.roles),
     href: withBase(`works/${entry.id}/`),
   };
@@ -203,6 +215,15 @@ export function filterKeysFor(work: Work, tab: Tab): string[] {
   const keys = defs.filter((f) => f.key !== 'etc' && f.match.some((m) => roles.includes(m))).map((f) => f.key);
   if (keys.length === 0 && defs.some((f) => f.key === 'etc')) keys.push('etc');
   return keys;
+}
+
+/** 역할이 해당하는 필터 버튼 주소 (예: 「편곡」 → 'music/?filter=arrange'). 해당 버튼이 없으면 null */
+export function roleFilterPath(role: string): string | null {
+  for (const tab of Object.keys(FILTERS) as Tab[]) {
+    const f = FILTERS[tab].find((x) => x.key !== 'etc' && x.match.includes(role));
+    if (f) return `${tab}/?filter=${f.key}`;
+  }
+  return null;
 }
 
 /** roles 를 ROLE_ORDER 순서로 정렬 (목록에 없는 값은 맨 뒤, 입력 순서 유지) */

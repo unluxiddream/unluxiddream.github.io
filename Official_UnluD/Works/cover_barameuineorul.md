@@ -27,6 +27,10 @@ streaming_url:
 sheet_url:
 cover:
 genres: Game Soundtrack
+vocal_tone:
+  - Mid
+vocal_voice:
+  - Chest
 ---
 
 ## Music Video

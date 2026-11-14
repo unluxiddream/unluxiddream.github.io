@@ -50,6 +50,10 @@ const works = defineCollection({
     projects: strList,
     roles: strList,
     genres: strList,
+    /** 보컬 톤: Low / Mid / High (src/config/site.ts 의 VOCAL_TONES) */
+    vocal_tone: strList,
+    /** 발성: Chest(진성) / Head(두성) / Falsetto(가성) (VOCAL_VOICES) */
+    vocal_voice: strList,
     youtube_link: optStr,
     streaming_url: optStr,
     /** 악보 판매 페이지 (있으면 커버에 Score 태그 + 상세 페이지 「악보 구매」 버튼) */

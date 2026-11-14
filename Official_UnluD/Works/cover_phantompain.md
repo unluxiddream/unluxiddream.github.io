@@ -22,6 +22,10 @@ streaming_url:
 sheet_url:
 cover:
 genres: Royal Scandal
+vocal_tone:
+  - Mid
+vocal_voice:
+  - Chest
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YOD7_F1PgY4?si=2eEGlQjXPUtwfnqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

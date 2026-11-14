@@ -30,6 +30,12 @@ streaming_url:
 sheet_url:
 cover:
 genres: VOCALOID
+vocal_tone:
+  - Mid
+  - High
+vocal_voice:
+  - Chest
+  - Falsetto
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/X7RaGOiLwQw?si=1OlJk-HQPbql3kyq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -47,6 +53,9 @@ genres: VOCALOID
 10년 지난 녹음 파일을 사용하여 퀄리티가 현저히 바닥을 치고 있지만, 제 나름의 의미를 담은 커버곡이니 만족하고 있습니다.
 앞으로도 정진하겠습니다. 항상 들어주시는 많은 분들께, 감사의 말씀 올립니다.
 -2026.08.03. 언루시드드림 드림.
+
+UnluD : #Chest #Mid 
+XidD : #Falsetto #High 
 
 ---
 

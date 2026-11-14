@@ -20,7 +20,8 @@ export interface AboutData {
   discography: { year: string; title: string; format: string; note?: string; workId?: string }[];
   /** url = 클릭 시 열릴 외부 링크 (새 탭) */
   projects: { year: string; title: string; url?: string }[];
-  activities: { year: string; title: string; url?: string }[];
+  /** workId 가 있으면 그 작업물 페이지로, 없고 url 이 있으면 외부 링크(새 탭)로 연결 */
+  activities: { year: string; title: string; url?: string; workId?: string }[];
   portfolio: {
     genre: string;
     /** {title} 은 workId 작품의 현재 언어 제목(md의 title_kr/en/jp/cn)으로 자동 치환됩니다 */
