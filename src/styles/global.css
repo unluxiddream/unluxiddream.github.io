@@ -133,6 +133,9 @@ button, input, select, textarea {
 }
 button { cursor: pointer; background: none; border: 0; padding: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
+/* 줄바꿈: 한국어용 word-break: keep-all(단어 단위로만 줄바꿈)은 띄어쓰기가 없는
+   일본어·중국어에서는 문장 전체를 한 덩어리로 만들어 화면 밖으로 넘치게 하므로 해제 */
+:lang(ja), :lang(zh) { word-break: normal !important; overflow-wrap: break-word; }
 h1, h2, h3, h4, p, dl, dd { margin: 0; }
 ::selection { background: var(--accent); color: var(--on-accent); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
@@ -863,7 +866,8 @@ html.drawer-open .drawer { transform: none; }
   display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 64px;
   padding-top: 56px; padding-bottom: 96px;
 }
-@media (max-width: 900px) { .about { grid-template-columns: 1fr; gap: 40px; } }
+/* 1fr 대신 minmax(0, 1fr): 내용물(줄바꿈 안 되는 이름 등)이 칸을 화면 밖으로 밀어내지 않도록 */
+@media (max-width: 900px) { .about { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
 .about-side { position: relative; }
 .about-card {
   position: sticky; top: 32px;
@@ -881,10 +885,15 @@ html.drawer-open .drawer { transform: none; }
 }
 .about-mail:hover { color: var(--accent-ink); }
 @media (max-width: 900px) {
-  .about-card { position: static; display: grid; grid-template-columns: 112px 1fr; column-gap: 20px; align-items: center; text-align: left; }
+  .about-card { position: static; display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 20px; align-items: center; text-align: left; }
   .about-photo { grid-row: span 3; width: 112px; margin: 0; border: 1px solid var(--gold-soft); }
   .about-name, .about-alias { text-align: left; }
+  .about-name { font-size: clamp(19px, 6vw, 26px); }
   .about-mail { text-align: left; margin-top: 10px; padding-top: 10px; }
+}
+@media (max-width: 420px) {
+  .about-card { grid-template-columns: 88px minmax(0, 1fr); column-gap: 16px; padding: 24px 18px 22px; }
+  .about-photo { width: 88px; }
 }
 .about-intro p {
   font-size: clamp(17px, 2vw, 21px); line-height: 1.8; color: var(--text); word-break: keep-all;
