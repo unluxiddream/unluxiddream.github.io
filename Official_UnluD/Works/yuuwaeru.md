@@ -33,6 +33,7 @@ genres: Classical EDM
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-Wi17d045lM?si=Sy2Z1OS93WHA4gUI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## from 「10.Wheel of Fortune」Reversed
 ### CE 1444~
 
