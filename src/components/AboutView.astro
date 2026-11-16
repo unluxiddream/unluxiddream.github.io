@@ -32,7 +32,8 @@ const L = data.labels;
       <figure class="about-photo">
         <Image src={profileCrop} alt="UnluXidDream" widths={[300, 600, 900]} sizes="(max-width: 900px) 120px, 300px" loading="eager" />
       </figure>
-      <p class="about-name">Unlu<span class="x">X</span>idDream</p>
+      <p class="about-yomi" lang={{ ko: 'ko', en: 'en', jp: 'ja', cn: 'zh' }[lang]}>{SITE.reading[lang]}</p>
+      <p class="about-name"><span class="hl">Unlu</span>Xid<span class="hl">D</span>ream</p>
       <p class="about-alias">{SITE.alias}</p>
       <a class="about-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
     </div>
