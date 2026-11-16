@@ -28,6 +28,7 @@ const year = new Date().getFullYear();
 const site = Astro.site ?? new URL(Astro.url.origin);
 const ogImage = new URL(image ?? withBase('og-image.png'), site).href;
 const canonical = new URL(Astro.url.pathname, site).href;
+const isHome = Astro.url.pathname === withBase('');
 ---
 <!doctype html>
 <html lang={htmlLang} data-lang={pageLang ?? 'ko'} data-theme="dark">
@@ -39,6 +40,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={{ ko: 'ko_KR', en: 'en_US', ja: 'ja_JP', zh: 'zh_CN' }[htmlLang]} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
@@ -48,9 +50,22 @@ const canonical = new URL(Astro.url.pathname, site).href;
     <link rel="canonical" href={canonical} />
     <meta name="naver-site-verification" content="071252cef2ef558f82b6bfc14c3c3e962207bc2f" />
     <meta name="theme-color" content="#131012" />
+    {/* 파비콘: 구글 검색 결과는 48의 배수 크기 PNG/ICO 를 사용 (SVG 만으로는 표시 안 됨) */}
+    <link rel="icon" type="image/png" sizes="96x96" href={withBase('favicon-96x96.png')} />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="icon" href={withBase('favicon.ico')} sizes="48x48" />
     <link rel="apple-touch-icon" href={withBase('apple-touch-icon.png')} />
     <link rel="sitemap" href={withBase('sitemap-index.xml')} />
+    {/* 구글 검색 결과에 사이트 이름을 「UnluXidDream」으로 표시하기 위한 구조화 데이터 (홈에만) */}
+    {isHome && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: SITE.name,
+        alternateName: ['UnluD', '루드', 'ルード'],
+        url: new URL(withBase(''), site).href,
+      })} />
+    )}
 
     <!-- 언어·테마를 첫 페인트 전에 적용 (깜빡임 방지) -->
     <script is:inline>
