@@ -1,6 +1,6 @@
 {
   "attachmentFolderPath": "Attachments",
-  "newLinkFormat": "shortest",
+  "newLinkFormat": "absolute",
   "useMarkdownLinks": false,
   "promptDelete": false
 }

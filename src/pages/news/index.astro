@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import T from '../../components/T.astro';
+import { LANGS, NEWS_TYPES } from '../../config/site';
+import { getNews } from '../../lib/news';
+
+const news = await getNews();
+const CATS = [{ key: 'all', label: 'ALL' }, ...NEWS_TYPES.map((t) => ({ key: t.key, label: t.label }))];
+const ytHandler = `if(this.dataset.fb&&(this.naturalWidth<=120)){this.src=this.dataset.fb;this.dataset.fb='';this.classList.add('is-hq')}`;
+---
+<BaseLayout title="News" active="news">
+  <PageHead title="News" />
+
+  <section class="wrap news" data-news>
+    {/* 카테고리: 넓은 화면은 왼쪽 세로 메뉴, 좁은 화면은 드롭다운 */}
+    <aside class="news-side">
+      <nav class="news-cats" aria-label="Category">
+        {CATS.map((c, i) => (
+          <a href={c.key === 'all' ? '?' : `?type=${c.key}`} class:list={['news-cat', { 'is-active': i === 0 }]} data-cat={c.key} aria-current={i === 0 ? 'true' : undefined}>
+            {c.label}
+          </a>
+        ))}
+      </nav>
+      <label class="news-select">
+        <span class="sr-only">Category</span>
+        <select data-cat-select>
+          {CATS.map((c) => <option value={c.key}>{c.label}</option>)}
+        </select>
+      </label>
+    </aside>
+
+    <div class="news-main">
+      {news.length === 0 ? (
+        <p class="empty"><T k="list.empty" /></p>
+      ) : (
+        <>
+          <ol class="news-list">
+            {news.map((n) => (
+              <li data-news-item data-types={n.types.map((t) => t.key).join(' ')}>
+                <a class:list={['news-card', { 'has-cover': n.cover, 'is-pinned': n.data.pin !== undefined }]} href={n.href}>
+                  {n.data.pin !== undefined && <span class="news-pins" aria-hidden="true"><i></i><i></i><i></i><i></i></span>}
+                  <div class="news-card-body">
+                    <p class="news-meta">
+                      {n.dateLabel && <time class="news-date">{n.dateLabel}</time>}
+                      {n.types.map((t) => <span class="news-type">{t.label}</span>)}
+                      {n.projects.map((p) => (
+                        <span class:list={['tagpin', 'tagpin--proj', 'news-proj', p.className]}><span class="tag">{p.label}</span></span>
+                      ))}
+                    </p>
+                    <h2 class="news-title">
+                      {LANGS.map((l) => <span class="i18n" data-l={l.key} lang={l.locale}>{n.titles[l.key]}</span>)}
+                    </h2>
+                  </div>
+                  {n.cover && (
+                    <span class="news-thumb">
+                      <img
+                        src={n.cover}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        data-fb={n.fromYoutube ? n.fallback : undefined}
+                        onload={n.fromYoutube ? ytHandler : undefined}
+                      />
+                    </span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ol>
+          <p class="empty" data-news-empty hidden><T k="filter.empty" /></p>
+        </>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-news]');
+  if (root) {
+    const links = [...root.querySelectorAll<HTMLAnchorElement>('[data-cat]')];
+    const select = root.querySelector<HTMLSelectElement>('[data-cat-select]')!;
+    const items = [...root.querySelectorAll<HTMLElement>('[data-news-item]')];
+    const empty = root.querySelector<HTMLElement>('[data-news-empty]');
+    const valid = new Set(links.map((a) => a.dataset.cat!));
+
+    /** 분류 선택 → 메뉴 밑줄 · 드롭다운 · 목록 · 주소(?type=) 갱신 */
+    function show(cat: string, updateUrl = true) {
+      if (!valid.has(cat)) cat = 'all';
+      links.forEach((a) => {
+        const on = a.dataset.cat === cat;
+        a.classList.toggle('is-active', on);
+        if (on) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+      select.value = cat;
+      let shown = 0;
+      items.forEach((li) => {
+        const ok = cat === 'all' || (li.dataset.types || '').split(' ').includes(cat);
+        li.hidden = !ok;
+        if (ok) shown++;
+      });
+      if (empty) empty.hidden = shown > 0;
+      if (updateUrl) {
+        const url = new URL(location.href);
+        if (cat === 'all') url.searchParams.delete('type');
+        else url.searchParams.set('type', cat);
+        history.replaceState(null, '', url);
+      }
+    }
+
+    links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.cat!); }));
+    select.addEventListener('change', () => show(select.value));
+    show(new URLSearchParams(location.search).get('type') ?? 'all', false);
+  }
+</script>

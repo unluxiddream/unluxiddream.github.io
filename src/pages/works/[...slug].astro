@@ -24,7 +24,7 @@ const projects = d.projects.map((p) => ({ name: p, ...(PROJECTS[p] ?? { label: p
 const same = (a: string, b: string) => a.trim().normalize() === b.trim().normalize();
 const backTab = work.tabs[0];
 const backHref = withBase(`${backTab}/`);
-const tabLabel = { music: 'Music & Audio', visual: 'Visual & Video', other: 'Other Works' }[backTab];
+const tabLabel = { music: 'Music', visual: 'Visual', other: 'Other Works' }[backTab];
 const ytFallback = work.coverFallback ?? '';
 const ytHandler = `if(this.dataset.fb&&(this.naturalWidth<=120)){this.src=this.dataset.fb;this.dataset.fb='';this.classList.add('is-hq')}`;
 ---

@@ -16,6 +16,9 @@ export const SITE = {
  */
 export const WORKS_DIR = './Official_UnluD/Works';
 
+/** News(소식) md 파일 폴더. 파일명 = 주소 (/news/<파일명>/) */
+export const NEWS_DIR = './Official_UnluD/News';
+
 /** 지원 언어. key = URL 폴더명(src/pages/<key>/about.astro), field = title_<field> */
 export const LANGS = [
   { key: 'ko', field: 'kr', label: 'KR', locale: 'ko', name: '한국어' },
@@ -205,4 +208,14 @@ export const VOCAL_VOICES: VocalAttr[] = [
   { key: 'chest', label: { ko: '진성', en: 'Chest', jp: '地声', cn: '真声' }, match: ['Chest', '진성'] },
   { key: 'head', label: { ko: '두성', en: 'Head', jp: 'ヘッドボイス', cn: '头声' }, match: ['Head', '두성', '헤드보이스'] },
   { key: 'falsetto', label: { ko: '가성', en: 'Falsetto', jp: '裏声', cn: '假声' }, match: ['Falsetto', '가성'] },
+];
+
+/**
+ * News 분류. 소식 md 의 news_type 값 (여러 개 가능, 대소문자·기호 무시: LiveEvent = Live&Event = live event)
+ *  label: 카드의 박스 · 왼쪽 카테고리 메뉴에 보이는 이름
+ */
+export const NEWS_TYPES: { key: string; value: string; label: string }[] = [
+  { key: 'info', value: 'Info', label: 'INFO' },
+  { key: 'release', value: 'Release', label: 'RELEASE' },
+  { key: 'live', value: 'LiveEvent', label: 'LIVE&EVENT' },
 ];

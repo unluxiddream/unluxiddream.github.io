@@ -1,0 +1,49 @@
+---
+/** News 상세 페이지 doc_link 카드: 연결된 작업물 / 소식을 작은 가로 카드로 표시 */
+import { LANGS, WORK_TYPES } from '../config/site';
+import { withBase } from '../lib/url';
+import type { Related } from '../lib/news';
+
+interface Props {
+  item: Related;
+}
+const { item } = Astro.props;
+const ytHandler = `if(this.dataset.fb&&(this.naturalWidth<=120)){this.src=this.dataset.fb;this.dataset.fb='';this.classList.add('is-hq')}`;
+
+const w = item.kind === 'work' ? item.work : null;
+const n = item.kind === 'news' ? item.news : null;
+const href = (w ?? n)!.href;
+const titles = (w ?? n)!.titles;
+const cover = w ? w.cover : n!.cover;
+const fromYt = w ? w.coverFromYoutube : n!.fromYoutube;
+const fallback = w ? w.coverFallback : n!.fallback;
+const type = w?.data.work_type ? WORK_TYPES[w.data.work_type] : null;
+---
+<a class="related-card" href={href}>
+  <span class="related-thumb">
+    {cover ? (
+      <img src={cover} alt="" loading="lazy" decoding="async" data-fb={fromYt ? fallback : undefined} onload={fromYt ? ytHandler : undefined} />
+    ) : (
+      <span class="card-placeholder"><img src={withBase('favicon.svg')} alt="" /></span>
+    )}
+  </span>
+  <span class="related-body">
+    <span class="related-meta">
+      {w ? (
+        <>
+          <span class="related-kind">Works</span>
+          {type && <span class:list={['related-tag', type.className]}>{type.label}</span>}
+        </>
+      ) : (
+        <>
+          <span class="related-kind">News</span>
+          {n!.dateLabel && <time>{n!.dateLabel}</time>}
+        </>
+      )}
+    </span>
+    <span class="related-title">
+      {LANGS.map((l) => <span class="i18n" data-l={l.key} lang={l.locale}>{titles[l.key]}</span>)}
+    </span>
+  </span>
+  <svg class="related-arrow" viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5 H12 M8 1 L12 5 L8 9" /></svg>
+</a>

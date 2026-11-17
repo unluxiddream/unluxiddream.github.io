@@ -139,6 +139,30 @@ function vocalAttrs(values: string[], defs: VocalAttr[]): VocalAttr[] {
   return defs.filter((def) => def.match.some((m) => given.includes(m.toLowerCase())));
 }
 
+export interface CoverInfo {
+  cover: string | null;
+  /** 커버가 유튜브 썸네일에서 온 경우 true (해상도 폴백 처리용) */
+  fromYoutube: boolean;
+  /** 유튜브 고화질 썸네일이 없을 때 대신 쓸 중간 화질 썸네일 */
+  fallback: string | null;
+}
+
+/**
+ * md 의 cover 값 하나를 이미지 주소로 변환 (작업물 · News 공용)
+ *  이미지([[ ]]·파일명·이미지 URL) / 유튜브 링크(썸네일) / 일반 웹페이지 링크(og:image)
+ */
+export async function coverFromValue(value: string | undefined, id: string): Promise<CoverInfo> {
+  const none: CoverInfo = { cover: null, fromYoutube: false, fallback: null };
+  if (!value) return none;
+  const yt = isHttp(value) ? youtubeId(value) : null;
+  if (yt) return { cover: ytThumb(yt, 'maxresdefault'), fromYoutube: true, fallback: ytThumb(yt, 'hqdefault') };
+  if (!isHttp(value) || IMAGE_URL.test(value)) return { ...none, cover: resolveImage(value) };
+  const first = !pageImageCache.has(value);
+  const cover = await pageImage(value);
+  if (!cover && first) console.warn(`[cover] ${id}: cover 링크에서 이미지를 찾지 못했습니다 → ${value}`);
+  return { ...none, cover };
+}
+
 export async function toWork(entry: WorkEntry): Promise<Work> {
   const d = entry.data;
   const titles = Object.fromEntries(
@@ -159,16 +183,8 @@ export async function toWork(entry: WorkEntry): Promise<Work> {
   };
 
   // 1) cover 값: 이미지([[ ]]·파일명·이미지 URL) / 유튜브 링크 / 일반 웹페이지 링크
-  if (d.cover) {
-    const coverYt = isHttp(d.cover) ? youtubeId(d.cover) : null;
-    if (coverYt) useYoutube(coverYt);
-    else if (!isHttp(d.cover) || IMAGE_URL.test(d.cover)) cover = resolveImage(d.cover);
-    else {
-      const first = !pageImageCache.has(d.cover);
-      cover = await pageImage(d.cover);
-      if (!cover && first) console.warn(`[works] ${entry.id}: cover 링크에서 이미지를 찾지 못해 다음 순서로 넘어갑니다 → ${d.cover}`);
-    }
-  }
+  const fromCover = await coverFromValue(d.cover, entry.id);
+  if (fromCover.cover) ({ cover, fromYoutube: coverFromYoutube, fallback: coverFallback } = fromCover);
   // 2) youtube_link 썸네일  3) 본문 첫 이미지
   if (!cover && yt) useYoutube(yt);
   if (!cover) {

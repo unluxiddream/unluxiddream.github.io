@@ -7,8 +7,8 @@ import { getWorksByTab } from '../lib/works';
 
 const works = await getWorksByTab('music');
 ---
-<BaseLayout title="Music & Audio" active="music">
-  <PageHead title="Music & Audio" count={works.length} sort>
+<BaseLayout title="Music" active="music">
+  <PageHead title="Music" count={works.length} sort>
     <FilterBar tab="music" />
   </PageHead>
   <section class="wrap section section--grid">

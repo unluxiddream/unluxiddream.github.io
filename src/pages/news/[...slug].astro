@@ -1,0 +1,101 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import T from '../../components/T.astro';
+import RelatedCard from '../../components/RelatedCard.astro';
+import { LANGS } from '../../config/site';
+import { getNews, relatedDocs, type News } from '../../lib/news';
+import { withBase } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const list = await getNews();
+  return Promise.all(list.map(async (n) => ({ params: { slug: n.id }, props: { news: n, related: await relatedDocs(n, list) } })));
+}
+
+interface Props {
+  news: News;
+  related: Awaited<ReturnType<typeof relatedDocs>>;
+}
+const { news: n, related } = Astro.props;
+const d = n.data;
+const { Content } = await render(n.entry);
+const same = (a: string, b: string) => a.trim().normalize() === b.trim().normalize();
+const backHref = withBase('news/');
+---
+<BaseLayout title={d.title} active="news" image={n.cover ?? undefined}>
+  <div class="news-detail wrap">
+    <nav class="crumb">
+      <a href={backHref}>
+        <svg viewBox="0 0 6 10" aria-hidden="true"><polygon points="6,0 0,5 6,10" /></svg>
+        News
+      </a>
+    </nav>
+
+    <article class="news-article">
+      <header class="news-article-head">
+        <p class="news-meta">
+          {n.dateLabel && <time class="news-article-date">{n.dateLabel}</time>}
+          {n.types.map((t) => <a class="news-type" href={withBase(`news/?type=${t.key}`)}>{t.label}</a>)}
+          {n.projects.map((p) => (
+            <span class:list={['tagpin', 'tagpin--proj', 'news-proj', p.className]}><span class="tag">{p.label}</span></span>
+          ))}
+        </p>
+        {LANGS.map((l) => (
+          <div class="i18n" data-l={l.key} lang={l.locale}>
+            <h1 class="news-article-title">{n.titles[l.key]}</h1>
+            {d.subtitle && <p class="work-sub">{d.subtitle}</p>}
+            {!same(n.titles[l.key], d.title) && <p class="news-article-orig" lang="">{d.title}</p>}
+          </div>
+        ))}
+      </header>
+
+      <div class="prose news-prose">
+        <Content />
+      </div>
+
+      {/* doc_link: 연결된 작업물 · 소식 카드 (본문 → 관련 문서 → 링크 버튼 순서) */}
+      {related.length > 0 && (
+        <section class="related" aria-label="Related">
+          <h2 class="related-head">Related</h2>
+          <div class="related-list">
+            {related.map((item) => <RelatedCard item={item} />)}
+          </div>
+        </section>
+      )}
+
+      {(d.streaming_url || d.youtube_link || d.sheet_url || d.community_url || d.github_url) && (
+        <div class="work-actions news-actions">
+          {d.streaming_url && (
+            <a class="btn btn--primary" href={d.streaming_url} target="_blank" rel="noopener">
+              <svg viewBox="0 0 10 12" aria-hidden="true"><polygon points="0,0 10,6 0,12" /></svg>
+              Streaming
+            </a>
+          )}
+          {d.youtube_link && (
+            <a class="btn btn--line" href={d.youtube_link} target="_blank" rel="noopener"><T k="detail.watch" /></a>
+          )}
+          {d.sheet_url && (
+            <a class="btn btn--line" href={d.sheet_url} target="_blank" rel="noopener">
+              <svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0h7l3 3v9H0z" /></svg>
+              <T k="detail.sheet" />
+            </a>
+          )}
+          {d.community_url && (
+            <a class="btn btn--line" href={d.community_url} target="_blank" rel="noopener">
+              <svg viewBox="0 0 12 12" aria-hidden="true"><polygon points="5,0 7,0 7,6 10,6 6,10 2,6 5,6" /><rect x="1" y="11" width="10" height="1" /></svg>
+              Download
+            </a>
+          )}
+          {d.github_url && (
+            <a class="btn btn--line" href={d.github_url} target="_blank" rel="noopener"><T k="detail.github" /></a>
+          )}
+        </div>
+      )}
+    </article>
+
+    <a class="back" href={backHref}>
+      <svg viewBox="0 0 6 10" aria-hidden="true"><polygon points="6,0 0,5 6,10" /></svg>
+      <T k="detail.back" />
+    </a>
+  </div>
+</BaseLayout>
