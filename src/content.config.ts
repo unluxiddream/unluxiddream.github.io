@@ -43,6 +43,8 @@ const works = defineCollection({
   loader: glob({ pattern: ['**/*.md', '!**/_*.md'], base: WORKS_DIR }),
   schema: z.looseObject({
     title: z.union([z.string(), z.number()]).transform(String),
+    /** Obsidian 별칭: 본문 [[별칭]] 링크 · doc_link 에서 이 문서를 찾을 때 사용 (화면에는 안 보임) */
+    aliases: strList,
     subtitle: optStr,
     title_kr: optStr,
     title_en: optStr,
@@ -82,6 +84,8 @@ const news = defineCollection({
   loader: glob({ pattern: ['**/*.md', '!**/_*.md'], base: NEWS_DIR }),
   schema: z.looseObject({
     title: z.union([z.string(), z.number()]).transform(String),
+    /** Obsidian 별칭: 본문 [[별칭]] 링크 · doc_link 에서 이 문서를 찾을 때 사용 (화면에는 안 보임) */
+    aliases: strList,
     subtitle: optStr,
     title_kr: optStr,
     title_en: optStr,

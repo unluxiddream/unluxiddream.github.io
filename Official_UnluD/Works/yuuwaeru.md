@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 有（ゆう）
 title: 有（ゆう）
 subtitle:
 title_kr: 有(유우)

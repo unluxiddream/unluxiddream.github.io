@@ -62,15 +62,18 @@ export type Related = { kind: 'work'; work: Work } | { kind: 'news'; news: News 
 /** 문서 이름 비교용: 폴더 경로 제외 · 소문자 · 공백 → - (Astro 의 파일 id 규칙과 맞춤) */
 const docKey = (s: string) => s.split('/').pop()!.trim().toLowerCase().replace(/\s+/g, '-');
 
-/** doc_link 의 [[문서]] 들을 Works → News 순서로 찾아 연결. 못 찾은 이름은 빌드 로그에 경고 */
+/** 파일명(id) 또는 aliases 중 하나가 이름과 같은지 */
+const matches = (id: string, aliases: string[], key: string) => docKey(id) === key || aliases.some((a) => docKey(a) === key);
+
+/** doc_link 의 [[문서]] 들을 Works → News 순서로 찾아 연결 (파일명 · aliases). 못 찾은 이름은 빌드 로그에 경고 */
 export async function relatedDocs(n: News, allNews: News[]): Promise<Related[]> {
   if (!n.data.doc_link.length) return [];
   const works = await getWorks();
   const out: Related[] = [];
   for (const name of n.data.doc_link) {
     const key = docKey(name);
-    const work = works.find((w) => docKey(w.id) === key);
-    const news = work ? undefined : allNews.find((x) => docKey(x.id) === key && x.id !== n.id);
+    const work = works.find((w) => matches(w.id, w.data.aliases, key));
+    const news = work ? undefined : allNews.find((x) => x.id !== n.id && matches(x.id, x.data.aliases, key));
     if (work) out.push({ kind: 'work', work });
     else if (news) out.push({ kind: 'news', news });
     else console.warn(`[news] ${n.id}: doc_link 「${name}」 문서를 Works · News 에서 찾지 못했습니다`);

@@ -891,7 +891,7 @@ html.drawer-open .drawer { transform: none; }
 .prose li::marker { color: var(--gold); }
 .prose hr { border: 0; height: 1px; margin: 2.4em 0; background: linear-gradient(90deg, var(--gold), transparent); position: relative; overflow: visible; }
 .prose blockquote { margin: 0; padding: 4px 0 4px 18px; border-left: 2px solid var(--gold); color: var(--muted); }
-.prose img { width: auto; max-width: 100%; height: auto; border: 1px solid var(--line); }
+.prose img { width: auto; max-width: 100%; height: auto; margin-inline: auto; border: 1px solid var(--line); } /* 본문보다 작은 이미지는 가운데 */
 .prose iframe { width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1px solid var(--line); background: #000; }
 /* 세로 영상(YouTube Shorts 등): <iframe class="shorts" …> */
 .prose iframe.shorts { display: block; width: min(100%, 360px); aspect-ratio: 9 / 16; margin-inline: auto; }
