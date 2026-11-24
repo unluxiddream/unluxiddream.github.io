@@ -5,6 +5,7 @@ import remarkBreaks from 'remark-breaks';
 import remarkObsidianEmbed from './src/lib/remark-obsidian-embed.mjs';
 import remarkObsidianTags from './src/lib/remark-obsidian-tags.mjs';
 import remarkObsidianLinks from './src/lib/remark-obsidian-links.mjs';
+import remarkSplitEmbedHtml from './src/lib/remark-split-embed-html.mjs';
 import vaultAttachments from './src/integrations/vault-attachments.mjs';
 import sitemap from '@astrojs/sitemap';
 
@@ -34,7 +35,9 @@ export default defineConfig({
       // remarkObsidianEmbed : ![[이미지.png]] 문법을 public/images/ 경로로 변환
       // remarkObsidianTags  : 본문의 #태그 를 태그 모양으로 표시
       // remarkObsidianLinks : 본문의 [[문서]] 링크를 작업물 · 소식 페이지 주소로 연결 (파일명 · aliases 로 찾음)
+      // remarkSplitEmbedHtml : <iframe> 바로 다음 줄의 글이 HTML 로 묶여 줄바꿈이 사라지는 것 방지 (맨 앞에서 실행)
       remarkPlugins: [
+        remarkSplitEmbedHtml,
         remarkBreaks,
         [remarkObsidianEmbed, { base: BASE }],
         [remarkObsidianLinks, { base: BASE, collections: [{ dir: './Official_UnluD/Works', route: 'works' }, { dir: './Official_UnluD/News', route: 'news' }] }],

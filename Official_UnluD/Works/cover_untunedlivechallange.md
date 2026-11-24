@@ -49,34 +49,43 @@ Video making : Davinci Resolve
 ---
 
 ## Best Pick
-### 脳内革命ガール
+### 脳内革命ガール #Chest #High
 <iframe class="shorts" src="https://www.youtube.com/embed/_6vDeVKzfhA?si=CzeVmVk66GelEKvT" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ▼ Original : MARETU
 
-#Chest #High
-
-### 威風堂々
+### 威風堂々 #Chest #Mid
 <iframe class="shorts" src="https://www.youtube.com/embed/wWgzxEUM6ag?si=_PRcEhQmQb4BM9O0" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ▼ Original : 梅とら
 
-#Chest #Mid
-
-### 聖槍爆裂ボーイ
+### 聖槍爆裂ボーイ #Chest #Mid
 <iframe class="shorts" src="https://www.youtube.com/embed/EWAwvgGv5VY?si=Tut5PxOnifkFIJ-P" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ▼ Original : れるりり
 
-#Chest #Mid
-
-### 雪の華
+### 雪の華 #Chest #Low
 <iframe class="shorts" src="https://www.youtube.com/embed/Q7ZhU2_aPrw?si=Af_TdljtZdC3bWEo" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ▼ Piano : Hiro @HiroPiano (https://youtu.be/Y3HT2EVdc-I?si=lX8ht9cXi3C7u8vR)
 ▼ Original : 中島美嘉
 
-#Chest #Low
+---
 
-### LOSER
-<iframe class="shorts" src="https://www.youtube.com/embed/KV5sOpThSVw?si=lVrvIdJ6S6E3ywos" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-▼ Piano : Hiro @HiroPiano (https://youtu.be/wl6I77QsB_w?si=8Ct_m95Lz-RdFqDV)
-▼ Original : 米津玄師
+## Tone Pick
+### ただ君に晴れ 
+#Falsetto #High
+<iframe class="shorts" src="https://www.youtube.com/embed/NPukAol-pWI?si=2FN1kGGCbe7FDPq4" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-#Chest #Falsetto #Mid
+#Chest #Low 
+<iframe class="shorts" src="https://www.youtube.com/embed/-jwBvI8WhTo?si=Volagyxnu08pSNyI" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+▼ Piano : Hiro @HiroPiano (https://youtu.be/hEUssyr-29Y?si=tA7iPWrUX7lXrDLC) 
+▼ Original : ヨルシカ
+
+### なんでもないや
+#Falsetto #High
+<iframe class="shorts" src="https://www.youtube.com/embed/C3iinZ6n_CM?si=KTVaiL6XHHmPZhDg" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+▼ Piano : Hiro @HiroPiano (https://youtu.be/yKHxun5XuSQ?si=FQrP81W8GSkvJRFK) 
+▼ Original : RADWIMPS
+
+### スパークル
+<iframe class="shorts" src="https://www.youtube.com/embed/nqP480UXdtw?si=XEIDovT2DdA_VGUm" title="YouTube Shorts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+▼ Piano : Hiro @HiroPiano (https://youtu.be/UW_QezCc22w?si=bAXeuBgicH90CcYp) 
+▼ Original : RADWIMPS
+
