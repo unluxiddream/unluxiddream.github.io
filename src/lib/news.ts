@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { LANGS, NEWS_TYPES, PROJECTS, type LangKey } from '../config/site';
-import { formatDate, parseCustomDate } from './date';
+import { formatDate, parseCustomDate, type ParsedDate } from './date';
 import { coverFromValue, getWorks, type CoverInfo, type Work } from './works';
 import { withBase } from './url';
 
@@ -12,6 +12,8 @@ export interface News extends CoverInfo {
   data: NewsEntry['data'];
   /** 언어별 표시 제목 (title_xx 가 없으면 title) */
   titles: Record<LangKey, string>;
+  /** release_date → creation_date */
+  date: ParsedDate | null;
   /** 2026.01.31 형식 (release_date → creation_date) */
   dateLabel: string;
   sortKey: number;
@@ -35,6 +37,7 @@ export async function toNews(entry: NewsEntry): Promise<News> {
     entry,
     data: d,
     titles,
+    date,
     dateLabel: formatDate(date),
     sortKey: date?.key ?? Number.MIN_SAFE_INTEGER,
     types: NEWS_TYPES.filter((t) => given.includes(squash(t.value))),
