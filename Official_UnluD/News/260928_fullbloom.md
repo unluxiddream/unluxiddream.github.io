@@ -35,6 +35,5 @@ pin:
 
 ---
 
-### 기획 | 상명대학교 제30대 문화예술대학 학생회 나우(NOW)
+### [기획 | 상명대학교 제30대 문화예술대학 학생회 나우(NOW)](https://www.instagram.com/p/DdsxlNBic8R/?utm_source=ig_web_copy_link)
 
-https://www.instagram.com/p/DdsxlNBic8R/?utm_source=ig_web_copy_link
