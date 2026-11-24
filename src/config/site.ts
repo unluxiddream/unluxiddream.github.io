@@ -4,7 +4,7 @@
 
 export const SITE = {
   name: 'UnluXidDream',
-  alias: 'UnluD | 루드 | ルード',
+  alias: 'UnluD | 루드 | ルード | 恩路德',
   /** About 프로필 카드의 이름 위 독음 (요미가나처럼 작게). 영어는 국제음성기호(IPA) */
   reading: { ko: '언루시드 드림', en: '/ʌnˈluːsɪd driːm/', jp: 'アンルシッドドリーム', cn: '恩路西德德林' },
   email: 'unluxiddream@naver.com',

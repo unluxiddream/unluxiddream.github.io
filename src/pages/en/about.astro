@@ -6,11 +6,19 @@ import type { AboutData } from '../../lib/about';
 
 /* 이 아래 data 객체만 수정하면 About 페이지 내용이 바뀝니다 */
 const data: AboutData = {
+  lead: 'From dreamlike illusions to waves of reality.',
   intro: [
-    'I began learning classical piano the year I entered elementary school. In middle school I switched to pop piano, and started teaching myself composition.',
-    'I went on to an engineering college, but I could not give up on music — so I took up classical composition as a double major, which has led me to where I am today.',
-    'Connecting and combining every kind of music I have learned, I pursue “my own music”: something that cannot be defined by any single genre or form.',
+    'Introduced to music through classical piano in elementary school, she transitioned to pop piano in middle school and began teaching herself composition. After entering Sangmyung University to major in Korea-Japan Cultural Contents, she pursued a double major in New Media Composition.',
+    'Her experience across these distinct disciplines culminates in a classical-based hybrid sound. Layering contemporary sensibilities over a solid structural foundation, she paints the illusions in her mind as vivid, real-world music.',
   ],
+  realName: { label: 'Real name', name: '임수빈(iM SOOBIN)' },
+  teachers: {
+    label: 'Studied under',
+    items: [
+      { field: 'Composition', names: 'Seung Jae Chung, 김주환(ENDO KIM)' },
+      { field: 'Piano', names: '배민서' },
+    ],
+  },
   labels: {
     fields: 'Fields', education: 'Education', discography: 'Discography', projects: 'Projects',
     activities: 'Other Activities', portfolio: 'Selected Works', contact: 'Contact',
@@ -30,15 +38,15 @@ const data: AboutData = {
     'Sangmyung University — Korean-Japanese Cultural Contents, College of Humanities & Social Sciences / New Media Composition, Department of Music, College of Culture & Arts (enrolled 2023–)',
   ],
   discography: [
-    { year: '2026', title: 'Ilsaenghui I from Dokwang Jeongi:The Musical', format: 'Single', workId: 'ilsaenghui1' },
-    { year: '2026', title: '有 (Yuu)', format: 'Single', workId: 'yuuwaeru' },
-    { year: '2026', title: '\'Shinhwa\' for Orchestra — 오케스트라를 위한 신화(神化)', format: 'Single', workId: 'shinhwafororchestra' },
-    { year: '2026', title: '소프라노 리코더와 피아노를 위한 일광(日光)', format: 'Single', workId: 'formysunlight' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'ilsaenghui1' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'yuuwaeru' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'shinhwafororchestra' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'formysunlight' },
     { year: '2025', title: 'kono hanawa shinase mashita — この花は死なせました', format: 'Single', note: 'Composition, lyrics & vocals', workId: 'konohanahashinasemashita' },
-    { year: '2025', title: 'If Met Again in Dream', format: 'Single', workId: 'ifmetagainindream' },
-    { year: '2024', title: 'Suite for Piano Solo', format: 'EP', workId: 'suiteforpianosolo' },
-    { year: '2024', title: 'Timing, Luck, Fate', format: 'Single', workId: 'timing-luck-fate' },
-    { year: '2023', title: 'Forest of a Thousand Years', format: 'Single', workId: '1000forest' },
+    { year: '2025', title: '{title}', format: 'Single', workId: 'ifmetagainindream' },
+    { year: '2024', title: '{title}', format: 'EP', workId: 'suiteforpianosolo' },
+    { year: '2024', title: '{title}', format: 'Single', workId: 'timing-luck-fate' },
+    { year: '2023', title: '{title}', format: 'Single', workId: '1000forest' },
   ],
   projects: [{ year: '2026–', title: 'Project・LuDiA' }],
   activities: [

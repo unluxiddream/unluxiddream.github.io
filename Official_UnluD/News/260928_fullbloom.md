@@ -31,7 +31,7 @@ pin:
 
 ![[Attachments/fullbloom_poster.webp|상명대학교 제30대 문화예술대학 학생회 나우(NOW) 만개:지나온 시간 끝에 우리의 예술이 만개하는 순간 2026 문예인의 밤 상명대학교 미래백년관 B1층 월해갤러리 2026.9.28~10.2|500]]
 
-![[Attachments/fullbloom_imsoobin.webp|임수빈, 有, 2026, Music, 프로젝트 루디아 그 첫번째 이야기, 유우. 영원히 다시 사는 실패작의 생을 그렸다.|500]]
+![[Attachments/fullbloom_imsoobin.webp|상명대학교 만개, 임수빈, 有, 2026, Music, 프로젝트 루디아 그 첫번째 이야기, 유우. 영원히 다시 사는 실패작의 생을 그렸다.|500]]
 
 ---
 

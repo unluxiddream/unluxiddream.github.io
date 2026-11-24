@@ -43,12 +43,6 @@ export const UI = {
   'detail.watch': { ko: 'YouTube에서 보기', en: 'Watch on YouTube', jp: 'YouTubeで見る', cn: '在 YouTube 观看' },
 
   'home.role': { ko: '작곡가 · 멀티 아티스트', en: 'Composer · Multi-Artist', jp: '作曲家 · マルチアーティスト', cn: '作曲家 · 全能创作者' },
-  'home.lead': {
-    ko: '언어와 파동으로 전해지는 세계.',
-    en: 'A world resonating through words and waves.',
-    jp: '言葉と波動で伝わる世界。',
-    cn: '借由言语与波动传递的世界。',
-  },
   'home.viewall': { ko: '전체 보기', en: 'View all', jp: 'すべて見る', cn: '查看全部' },
   'home.cta.about': { ko: '프로필 보기', en: 'Read profile', jp: 'プロフィールを見る', cn: '查看简介' },
   'home.cta.works': { ko: '작업물 보기', en: 'Explore works', jp: '作品を見る', cn: '浏览作品' },
@@ -76,10 +70,10 @@ export const UI = {
   'disc.dev.sub': { ko: 'Obsidian, Web', en: 'Obsidian, Web', jp: 'Obsidian, Web', cn: 'Obsidian, Web' },
 
   'contact.lead': {
-    ko: '작곡 · 편곡 · 보컬 · 아트워크 · 영상 등 작업 의뢰와 협업 제안은 아래 메일로 연락 주세요.',
-    en: 'For commissions and collaborations — composition, arrangement, vocals, artwork, video and more — please get in touch by email.',
-    jp: '作曲 · 編曲 · ボーカル · アートワーク · 映像などのご依頼やコラボレーションのご提案は、下記のメールまでご連絡ください。',
-    cn: '作曲 · 编曲 · 演唱 · 美术 · 视频等委托与合作提案，请通过以下邮箱联系。',
+    ko: '작업 의뢰 · 협업 제안 · 공연 섭외 · 기타 문의',
+    en: 'Commissions · Collaborations · Performance\u00a0Bookings · General\u00a0Inquiries', // \u00a0: 항목 중간에서 줄이 바뀌지 않게
+    jp: '制作依頼 · コラボのご提案 · 出演依頼 · その他のお問い合わせ',
+    cn: '作品委托 · 合作提案 · 演出邀约 · 其他咨询',
   },
   'contact.copy': { ko: '주소 복사', en: 'Copy address', jp: 'アドレスをコピー', cn: '复制地址' },
   'contact.copied': { ko: '복사했습니다', en: 'Copied', jp: 'コピーしました', cn: '已复制' },

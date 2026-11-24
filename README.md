@@ -1,6 +1,6 @@
 # UnluXidDream — Official Portfolio
 
-**UnluD | 루드 | ルード** — composer and multi-artist.
+**UnluD | 루드 | ルード | 恩路德** — composer and multi-artist.
 
 This repository holds the source of my official portfolio site: composition, vocals, arrangement, lyrics, mixing & mastering, artwork, video, and publication work, all in one place.
 

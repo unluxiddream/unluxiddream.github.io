@@ -16,7 +16,7 @@ const { lang, data } = Astro.props;
 const works = await getWorks();
 const findWork = (id?: string) => (id ? works.find((w) => w.id === id) : undefined);
 const workHref = (id?: string) => findWork(id)?.href;
-/** 포트폴리오 제목의 {title} 을 해당 작품의 현재 언어 제목으로 바꿈 */
+/** 음반 · 포트폴리오 제목의 {title} 을 해당 작품의 현재 언어 제목(md 의 title_kr/en/jp/cn)으로 바꿈 */
 const fillTitle = (t: string, id?: string) => {
   const w = findWork(id);
   return w ? t.replaceAll('{title}', w.titles[lang]) : t.replaceAll('{title}', '');
@@ -40,8 +40,29 @@ const L = data.labels;
   </aside>
 
   <div class="about-main">
-    <section class="about-intro">
+    <section class:list={['about-intro', { 'has-lead': data.lead }]}>
+      {data.lead && <p class="about-lead">{data.lead}</p>}
       {data.intro.map((p) => <p>{p}</p>)}
+      {(data.realName || data.teachers) && (
+        <div class="about-facts">
+          {data.realName && (
+            <dl class="about-teachers">
+              <dt>{data.realName.label}</dt>
+              <dd>{data.realName.name}</dd>
+            </dl>
+          )}
+          {data.teachers && (
+            <dl class="about-teachers">
+              <dt>{data.teachers.label}</dt>
+              <dd>
+                {data.teachers.items.map((t, i) => (
+                  <>{i > 0 && <span class="about-teachers-sep" aria-hidden="true">/</span>}<span><b>{t.field}</b> {t.names}</span></>
+                ))}
+              </dd>
+            </dl>
+          )}
+        </div>
+      )}
     </section>
 
     <section class="about-sec">
@@ -68,7 +89,7 @@ const L = data.labels;
           <li>
             <span class="tl-year">{r.year}</span>
             <span class="tl-body">
-              {href ? <a class="tl-title tl-link" href={href}>{r.title}</a> : <span class="tl-title">{r.title}</span>}
+              {href ? <a class="tl-title tl-link" href={href}>{fillTitle(r.title, r.workId)}</a> : <span class="tl-title">{fillTitle(r.title, r.workId)}</span>}
               <span class="tl-format">{r.format}</span>
               {r.note && <span class="tl-note">{r.note}</span>}
             </span>

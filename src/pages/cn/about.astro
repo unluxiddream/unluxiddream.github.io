@@ -6,11 +6,19 @@ import type { AboutData } from '../../lib/about';
 
 /* 이 아래 data 객체만 수정하면 About 페이지 내용이 바뀝니다 */
 const data: AboutData = {
+  lead: '将梦境中的幻想，化为现实的波动。',
   intro: [
-    '小学入学时开始学习古典钢琴，升入初中后转向流行钢琴，并开始自学作曲。',
-    '虽然考入了工科大学，却始终无法放弃音乐，于是以双专业的形式选择了古典作曲，走到了今天。',
-    '将迄今所学的一切音乐相互连接、融合，追求无法以特定类型或形式定义的「属于自己的音乐」。',
+    '小学时期以古典钢琴踏入音乐世界，升入中学后转向流行钢琴，并开始自学作曲。考入祥明大学韩日文化内容专业后，双修了新媒体作曲专业。',
+    '跨越不同领域所积累的经验，最终汇聚成以古典为根基的跨界融合之声。在稳固的结构之上融入现代感性，将脑海中的幻想描绘成鲜明的现实音乐。',
   ],
+  realName: { label: '本名', name: '任秀彬(iM SOOBIN)' },
+  teachers: {
+    label: '师从',
+    items: [
+      { field: '作曲', names: '鄭丞宰(Seung Jae Chung)、김주환(ENDO KIM)' },
+      { field: '钢琴', names: '배민서' },
+    ],
+  },
   labels: {
     fields: '活动领域', education: '学历', discography: '唱片', projects: '项目',
     activities: '其他活动', portfolio: '代表作品', contact: '联系方式',
@@ -28,15 +36,15 @@ const data: AboutData = {
   ],
   education: ['祥明大学 人文社会科学学院 韩日文化内容专业、文化艺术学院 音乐学部 新媒体作曲专业 在读（2023〜）'],
   discography: [
-    { year: '2026', title: '音乐剧《독왕전기》选曲 일생희 I (Original Musical Soundtrack)', format: 'Single', workId: 'ilsaenghui1' },
-    { year: '2026', title: '有', format: 'Single', workId: 'yuuwaeru' },
-    { year: '2026', title: '为管弦乐团而作的《神化》', format: 'Single', workId: 'shinhwafororchestra' },
-    { year: '2026', title: '소프라노 리코더와 피아노를 위한 일광(日光)', format: 'Single', workId: 'formysunlight' },
-    { year: '2025', title: 'この花は死なせました', format: 'Single', note: '参与作曲・作词・演唱', workId: 'konohanahashinasemashita' },
-    { year: '2025', title: '꿈에서라도 다시 만날 수 있다면', format: 'Single', workId: 'ifmetagainindream' },
-    { year: '2024', title: 'Suite for Piano Solo', format: 'EP', workId: 'suiteforpianosolo' },
-    { year: '2024', title: '시기, 운, 운명', format: 'Single', workId: 'timing-luck-fate' },
-    { year: '2023', title: '천 년의 숲', format: 'Single', workId: '1000forest' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'ilsaenghui1' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'yuuwaeru' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'shinhwafororchestra' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'formysunlight' },
+    { year: '2025', title: '我让这朵花死去了 — この花は死なせました', format: 'Single', note: '参与作曲・作词・演唱', workId: 'konohanahashinasemashita' },
+    { year: '2025', title: '{title}', format: 'Single', workId: 'ifmetagainindream' },
+    { year: '2024', title: '{title}', format: 'EP', workId: 'suiteforpianosolo' },
+    { year: '2024', title: '{title}', format: 'Single', workId: 'timing-luck-fate' },
+    { year: '2023', title: '{title}', format: 'Single', workId: '1000forest' },
   ],
   projects: [{ year: '2026〜', title: 'Project・LuDiA' }],
   activities: [

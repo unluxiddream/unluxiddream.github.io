@@ -6,11 +6,18 @@ import type { AboutData } from '../../lib/about';
 
 /* 이 아래 data 객체만 수정하면 About 페이지 내용이 바뀝니다 */
 const data: AboutData = {
+  lead: '꿈속의 환상을, 현실의 파동으로.',
   intro: [
-    '초등학교 입학과 동시에 클래식 피아노를 배우기 시작했고, 중학교 입학 후 팝 피아노로 장르를 변경하며 독학으로 작곡을 시작했다.',
-    '공과대학에 진학했지만 음악을 포기할 수 없었고, 복수 전공으로 클래식 작곡을 선택해 지금에 이르렀다.',
-    '지금까지 배운 모든 음악을 연결하고 결합하여, 특정한 장르나 형식으로 정의할 수 없는 ‘자신만의 음악’을 추구하고 있다.',
+    '초등학교 시절 클래식 피아노로 음악에 입문했고, 중학교에 올라가 팝 피아노로 전향하며 독학으로 작곡을 시작했다. 상명대학교 한일문화콘텐츠전공에 진학한 뒤, 뉴미디어작곡을 복수 전공했다.\n서로 다른 영역을 넘나들며 쌓아 올린 경험은 클래식 기반의 하이브리드 사운드로 귀결된다. 견고한 구조 위에 현대적 감각을 덧입혀, 머릿속의 환상을 선명한 현실의 음악으로 그려낸다.',
   ],
+  realName: { label: '본명', name: '임수빈(iM SOOBIN)' },
+  teachers: {
+    label: '사사',
+    items: [
+      { field: '작곡', names: '정승재, 김주환(ENDO KIM)' },
+      { field: '피아노', names: '배민서' },
+    ],
+  },
   labels: {
     fields: '활동 분야', education: '학력', discography: '음반', projects: '프로젝트',
     activities: '기타 활동', portfolio: '대표 포트폴리오', contact: '연락처',
@@ -28,11 +35,11 @@ const data: AboutData = {
   ],
   education: ['상명대학교 인문사회과학대학 한일문화콘텐츠전공, 문화예술대학 음악학부 뉴미디어작곡전공 재학 (2023~)'],
   discography: [
-    { year: '2026', title: '뮤지컬 「독왕전기」 중 일생희 I (Original Musical Soundtrack)', format: 'Single', workId: 'ilsaenghui1' },
-    { year: '2026', title: '有(유우)', format: 'Single', workId: 'yuuwaeru' },
-    { year: '2026', title: '오케스트라를 위한 신화(神化)', format: 'Single', workId: 'shinhwafororchestra' },
-    { year: '2026', title: '소프라노 리코더와 피아노를 위한 일광(日光)', format: 'Single', workId: 'formysunlight' },
-    { year: '2025', title: 'この花は死なせました', format: 'Single', note: '작곡 · 작사 · 보컬 참여', workId: 'konohanahashinasemashita' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'ilsaenghui1' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'yuuwaeru' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'shinhwafororchestra' },
+    { year: '2026', title: '{title}', format: 'Single', workId: 'formysunlight' },
+    { year: '2025', title: '이 꽃은 죽게 두었습니다 — この花は死なせました', format: 'Single', note: '작곡 · 작사 · 보컬 참여', workId: 'konohanahashinasemashita' },
     { year: '2025', title: '꿈에서라도 다시 만날 수 있다면', format: 'Single', workId: 'ifmetagainindream' },
     { year: '2024', title: 'Suite for Piano Solo', format: 'EP', workId: 'suiteforpianosolo' },
     { year: '2024', title: '시기, 운, 운명', format: 'Single', workId: 'timing-luck-fate' },
