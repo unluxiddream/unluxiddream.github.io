@@ -21,7 +21,7 @@ genres:
 news_type:
   - Info
 doc_link:
-pin: "1"
+pin:
 ---
 
 대학원 진학으로, 금월 19일로 예정되어 있던 졸업 연주를 면제받았습니다.

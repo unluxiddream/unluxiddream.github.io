@@ -3,9 +3,9 @@ aliases:
 title: DNF 바람의 너를 UnluD Arrange
 subtitle:
 title_kr: DNF 바람의 너를 UnluD Arrange
-title_en:
-title_jp:
-title_cn:
+title_en: DNF You of the Wind UnluD Arrange
+title_jp: 【アラド戦記】 風の君を UnluD Arrange
+title_cn: 《地下城与勇士》 风一样的勇士 UnluD Arrange
 featured: false
 creation_date: "20261108021800"
 release_date: "20220206"

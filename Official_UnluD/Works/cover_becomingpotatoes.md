@@ -5,7 +5,7 @@ subtitle:
 title_kr: potato가 되어가
 title_en: Becoming Potatoes
 title_jp: potatoになっていく
-title_cn:
+title_cn: 变身土豆
 featured: false
 creation_date: "20261108021800"
 release_date: "20220619"

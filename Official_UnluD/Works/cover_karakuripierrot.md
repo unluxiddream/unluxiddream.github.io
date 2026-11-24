@@ -5,7 +5,7 @@ subtitle:
 title_kr: 꼭두각시 피에로
 title_en: Karakuri Pierrot
 title_jp: からくりピエロ
-title_cn:
+title_cn: 活动小丑
 featured: false
 creation_date: "20261108021800"
 release_date: "20240220"

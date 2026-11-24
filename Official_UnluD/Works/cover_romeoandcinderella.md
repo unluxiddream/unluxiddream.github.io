@@ -5,7 +5,7 @@ subtitle:
 title_kr: 로미오와 신데렐라
 title_en: Romeo & Cinderella
 title_jp: ロミオとシンデレラ
-title_cn:
+title_cn: 罗密欧与灰姑娘
 featured: false
 creation_date: "20261108021800"
 release_date: "20220515"

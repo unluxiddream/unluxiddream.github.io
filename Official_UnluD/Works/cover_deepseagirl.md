@@ -5,7 +5,7 @@ subtitle:
 title_kr: 심해소녀 -deep sea girl-
 title_en: 深海少女 -deep sea girl-
 title_jp: 深海少女 -deep sea girl-
-title_cn:
+title_cn: 深海少女 -deep sea girl-
 featured: false
 creation_date: "20261108021800"
 release_date: "20230726"

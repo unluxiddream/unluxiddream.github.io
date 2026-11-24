@@ -4,7 +4,7 @@ title: REVOLVER
 subtitle:
 title_kr:
 title_en:
-title_jp: REVOLVER
+title_jp:
 title_cn:
 featured: false
 creation_date: "20261108021800"

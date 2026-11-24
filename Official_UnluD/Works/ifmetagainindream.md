@@ -2,10 +2,10 @@
 aliases:
 title: 꿈에서라도 다시 만날 수 있다면
 subtitle:
-title_kr:
+title_kr: 꿈에서라도 다시 만날 수 있다면
 title_en: If Met Again in Dream
 title_jp: 夢でさえ、もう一度会えたら
-title_cn:
+title_cn: 若能在梦中再次相见
 featured: false
 creation_date: "20261108021800"
 release_date: "20250202"

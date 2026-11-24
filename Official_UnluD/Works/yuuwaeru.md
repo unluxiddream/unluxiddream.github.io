@@ -6,7 +6,7 @@ subtitle:
 title_kr: 有(유우)
 title_en: 有(Yuu)
 title_jp: 有（ゆう）
-title_cn:
+title_cn: 有（Yū）
 featured: true
 creation_date: "20261108021800"
 release_date: "20260714"

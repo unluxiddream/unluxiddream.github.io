@@ -3,9 +3,9 @@ aliases:
 title: 스물다섯, 스물하나
 subtitle:
 title_kr: 스물다섯, 스물하나
-title_en:
-title_jp:
-title_cn:
+title_en: Twenty-five, Twenty-one
+title_jp: 二十五、二十一
+title_cn: 二十五，二十一
 featured: false
 creation_date: "20261108021800"
 release_date: "20220522"

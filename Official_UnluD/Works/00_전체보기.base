@@ -23,3 +23,26 @@ views:
       note.featured: 24
       file.name: 17
       note.title: 213
+  - type: table
+    name: 제목용
+    filters:
+      and:
+        - "!roles.containsAny()"
+    groupBy:
+      property: work_type
+      direction: ASC
+    order:
+      - featured
+      - file.name
+      - title
+      - title_kr
+      - title_cn
+      - title_jp
+      - title_en
+    sort:
+      - property: release_date
+        direction: ASC
+    columnSize:
+      note.featured: 24
+      file.name: 17
+      note.title: 213

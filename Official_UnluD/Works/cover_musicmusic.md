@@ -5,7 +5,7 @@ subtitle:
 title_kr: 뮤직 뮤직
 title_en: Music Music
 title_jp: ミュージックミュージック
-title_cn:
+title_cn: Music Music
 featured: false
 creation_date: "20261108021800"
 release_date: "20220604"

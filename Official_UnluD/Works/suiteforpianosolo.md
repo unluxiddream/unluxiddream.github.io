@@ -4,8 +4,8 @@ title: Suite for Piano Solo
 subtitle:
 title_kr: 피아노 모음곡
 title_en: Suite for Piano Solo
-title_jp:
-title_cn:
+title_jp: ピアノ組曲
+title_cn: 钢琴独奏组曲
 featured: false
 creation_date: "20261108021800"
 release_date: "20240711"

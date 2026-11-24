@@ -5,7 +5,7 @@ subtitle:
 title_kr: 플라이데이・차이나타운
 title_en: Flyday・Chinatown
 title_jp: フライディ・チャイナタウン
-title_cn:
+title_cn: Flyday・Chinatown
 featured: false
 creation_date: "20261108021800"
 release_date: "20241001"

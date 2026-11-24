@@ -5,7 +5,7 @@ subtitle:
 title_kr: 팬텀 페인
 title_en: Phantom Pain
 title_jp: ファントムペイン
-title_cn:
+title_cn: 幻痛
 featured: false
 creation_date: "20261108021800"
 release_date: "20260907"

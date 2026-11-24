@@ -3,9 +3,9 @@ aliases:
 title: 소프라노 리코더와 피아노를 위한 일광(日光)
 subtitle:
 title_kr: 소프라노 리코더와 피아노를 위한 일광(日光)
-title_en:
-title_jp:
-title_cn:
+title_en: Sunlight for Soprano Recorder and Piano
+title_jp: ソプラノリコーダーとピアノのための「日光」
+title_cn: 为高音竖笛与钢琴而作的《日光》
 featured: false
 creation_date: "20261108021800"
 release_date: "20260101"

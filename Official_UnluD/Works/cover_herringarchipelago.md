@@ -2,10 +2,10 @@
 aliases:
 title: DNF 히링 제도 국악기 Arrange
 subtitle:
-title_kr:
+title_kr: DNF 히링 제도 국악기 Arrange
 title_en: DNF Herring Archipelago Korean Traditional Arrange
-title_jp:
-title_cn:
+title_jp: 【アラド戦記】 ヒーリング諸島 (韓国伝統楽器アレンジ)
+title_cn: 《地下城与勇士》 风一样的勇士 (韩国传统乐器编曲)
 featured: false
 creation_date: "20261108021800"
 release_date: "20250301"

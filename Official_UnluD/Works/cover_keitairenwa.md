@@ -5,7 +5,7 @@ subtitle:
 title_kr: 휴대연화
 title_en: Cellphone Love Story(Keitai Renwa)
 title_jp: 携帯恋話
-title_cn:
+title_cn: 手机恋话
 featured: false
 creation_date: "20261108021800"
 release_date: "20230824"

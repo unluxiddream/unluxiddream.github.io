@@ -5,7 +5,7 @@ subtitle:
 title_kr: 체리 헌트
 title_en: Cherry Hunt
 title_jp: チェリーハント
-title_cn:
+title_cn: 狩猎樱桃
 featured: false
 creation_date: "20261108021800"
 release_date: "20260623"

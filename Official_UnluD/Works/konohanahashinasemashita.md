@@ -5,7 +5,7 @@ subtitle:
 title_kr: 이 꽃은 죽게 두었습니다
 title_en: kono hanawa shinase mashita
 title_jp: この花は死なせました
-title_cn:
+title_cn: 我让这朵花死去了
 featured: false
 creation_date: "20261108021800"
 release_date: "20250625"

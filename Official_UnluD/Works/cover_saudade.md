@@ -5,7 +5,7 @@ subtitle:
 title_kr: 사우다지
 title_en: Saudade
 title_jp: サウダージ
-title_cn:
+title_cn: Saudade
 featured: false
 creation_date: "20261108021800"
 release_date: "20240805"

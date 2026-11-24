@@ -4,8 +4,8 @@ title: 우주를 줄게
 subtitle:
 title_kr: 우주를 줄게
 title_en: Galaxy
-title_jp:
-title_cn:
+title_jp: 宇宙をあげる
+title_cn: 给你宇宙
 featured: false
 creation_date: "20261114000000"
 release_date: "20251229"

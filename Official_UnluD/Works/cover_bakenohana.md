@@ -5,7 +5,7 @@ subtitle:
 title_kr: 둔갑의 꽃
 title_en: Bake no Hana
 title_jp: 化けの花
-title_cn:
+title_cn: 化之花
 featured: false
 creation_date: "20261108021800"
 release_date: "20241016"

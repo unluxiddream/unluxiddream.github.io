@@ -5,7 +5,7 @@ subtitle:
 title_kr: 매직 링 나이트
 title_en: Magic Ring Night
 title_jp: マジックリングナイト
-title_cn:
+title_cn: 魔戒之夜
 featured: false
 creation_date: "20261108021800"
 release_date: "20260612"
