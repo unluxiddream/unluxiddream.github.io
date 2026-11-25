@@ -19,7 +19,7 @@ sheet_url:
 cover:
 genres:
 news_type:
-  - Info
+  - LiveEvent
 doc_link:
 pin:
 ---
