@@ -20,7 +20,7 @@ roles:
 youtube_link:
 streaming_url:
 sheet_url:
-cover:
+cover: "[[Attachments/unluxidtools_main_square_en.webp]]"
 genres: Web App
 github_url: https://github.com/unluxiddream/unluxiddream-musical-tools
 ---
@@ -32,7 +32,7 @@ unluxidTOOLS turns the listening skills producers rely on every day into short, 
 
 🔗 **Live site:** [tools.unluxiddream.com](https://tools.unluxiddream.com)
 
-![[Attachments/unluxidtools_main_en.webp]]]
+![[Attachments/unluxidtools_main_en.webp]]
 
 ---
 
