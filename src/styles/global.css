@@ -948,8 +948,12 @@ html.drawer-open .drawer { transform: none; }
   margin-bottom: 1.4em; font-family: var(--font-serif); font-size: clamp(24px, 3.2vw, 34px); font-weight: 900;
   line-height: 1.4; letter-spacing: -0.02em; color: var(--accent-ink);
 }
-.about-facts { display: grid; gap: 8px; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
-.about-teachers { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+/* 이름 · 본명 · 사사: 제목 칸과 내용 칸을 세로로 맞춘 2열 표 (각 dl 은 칸 배치에 그대로 참여) */
+.about-facts {
+  display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: baseline; gap: 10px 18px;
+  margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line);
+}
+.about-teachers { display: contents; }
 .about-teachers dt { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; color: var(--gold-ink); }
 .about-teachers dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 15px; color: var(--text-2); }
 .about-teachers b { font-weight: 700; color: var(--text); margin-right: 2px; }
